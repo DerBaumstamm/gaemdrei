@@ -8,15 +8,18 @@ public class PlayerInput : MonoBehaviour
     public InputAction movementAction;
     public InputAction lookAction;
     public InputAction jumpAction;
+    public InputAction sprintAction;
 
 
     public Rigidbody rb;
     public Transform playerCamera; // Reference to the camera
     public float moveSpeed = 5f;
+    public float sprintSpeed = 10f; // Adjust the sprinting speed
     public float lookSpeed = 2f;
     public float jumpForce = 10f;
     public float groundCheckDistance = 0.2f; // Distance to check if the player is grounded
-    public float groundHeight = 0.5f; // Y-coordinate value for the ground level
+    public float groundHeight = 0.5f; // Y-coordinate value for the ground level 
+    private bool isSprinting = false;
 
     Vector2 moveDirection = Vector2.zero;
     Vector2 lookInput = Vector2.zero;
@@ -26,6 +29,7 @@ public class PlayerInput : MonoBehaviour
         movementAction.Enable();
         lookAction.Enable();
         jumpAction.Enable();
+        sprintAction.Enable();
     }
 
     private void OnDisable()
@@ -33,6 +37,7 @@ public class PlayerInput : MonoBehaviour
         movementAction.Disable();
         lookAction.Disable();
         jumpAction.Disable();
+        sprintAction.Disable();
     }
 
     private void Update()
@@ -44,6 +49,7 @@ public class PlayerInput : MonoBehaviour
         {
             Jump();
         }
+        isSprinting = sprintAction.ReadValue<float>() > 0.5f;
 
         RotatePlayer();
     }
@@ -59,8 +65,11 @@ public class PlayerInput : MonoBehaviour
         forward.Normalize();
         right.Normalize();
 
+        // Adjust speed based on sprinting state
+        float speed = isSprinting ? moveSpeed : sprintSpeed;
+
         Vector3 desiredMoveDirection = forward * moveDirection.y + right * moveDirection.x;
-        rb.velocity = new Vector3(desiredMoveDirection.x * moveSpeed, rb.velocity.y, desiredMoveDirection.z * moveSpeed);
+        rb.velocity = new Vector3(desiredMoveDirection.x * speed, rb.velocity.y, desiredMoveDirection.z * speed);
     }
 
     private void Jump()
