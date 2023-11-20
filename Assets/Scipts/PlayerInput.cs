@@ -24,6 +24,10 @@ public class PlayerInput : MonoBehaviour
     Vector2 moveDirection = Vector2.zero;
     Vector2 lookInput = Vector2.zero;
 
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
     private void OnEnable()
     {
         movementAction.Enable();
