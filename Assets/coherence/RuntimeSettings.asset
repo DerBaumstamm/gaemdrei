@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85b91f942a5214496b0e11eaedb54c36, type: 3}
+  m_Script: {fileID: 0}
   m_Name: RuntimeSettings
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Coherence:Coherence:RuntimeSettings
   versionInfo: {fileID: 11400000, guid: 2191b6f902c97477baa32a7919010503, type: 2}
-  runtimeKey: 0c39018ca81c41c09057a46ab9b1a7db
-  schemaID: 9e6bf9853ccb0b4bf29920510664b06d538541c9
-  uploadedSchema: 1
+  runtimeKey: 
+  schemaID: 0321dd1e336dbf42de3c916fc8416fe0c001e862
+  uploadedSchema: 0
   simulatorSlug: 
   localHost: 127.0.0.1
   localWorldUDPPort: 32001
@@ -29,9 +29,9 @@ MonoBehaviour:
   localHttpServerPort: 42006
   localDevelopmentMode: 1
   useDebugStreams: 0
-  organizationID: chh40gvssp0232118nc0
-  projectID: cldsf922t1cp5b52esag
-  projectName: gaemdrei
+  organizationID: 
+  projectID: 
+  projectName: 
   defaultTransportMode: 0
   replicationServerToken: 
   playApiEndpoint: https://api.prod.coherence.io/v1/play

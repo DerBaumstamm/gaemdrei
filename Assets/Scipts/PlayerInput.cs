@@ -1,25 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
-public class PlayerInput : MonoBehaviour
+public class PlayerInput : NetworkBehaviour
 {
-    public InputAction movementAction;
-    public InputAction lookAction;
-    public InputAction jumpAction;
-    public InputAction sprintAction;
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [SerializeField] private AudioListener audioListener;
+    [SerializeField] private InputAction movementAction;
+    [SerializeField] private InputAction lookAction;
+    [SerializeField] private InputAction jumpAction;
+    [SerializeField] private InputAction sprintAction;
 
 
-    public Rigidbody rb;
-    public Transform playerCamera; // Reference to the camera
-    public float moveSpeed = 5f;
-    public float sprintSpeed = 10f; // Adjust the sprinting speed
-    public float lookSpeed = 2f;
-    public float jumpForce = 10f;
-    public float groundCheckDistance = 0.2f; // Distance to check if the player is grounded
-    public float groundHeight = 0.5f; // Y-coordinate value for the ground level 
-    private bool isSprinting = false;
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private Transform playerCamera; // Reference to the camera
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float sprintSpeed = 10f; // Adjust the sprinting speed
+    [SerializeField] private float lookSpeed = 2f;
+    [SerializeField] private float jumpForce = 10f;
+    [SerializeField] private float groundCheckDistance = 0.2f; // Distance to check if the player is grounded
+    [SerializeField] private float groundHeight = 0.5f; // Y-coordinate value for the ground level 
+    [SerializeField] private bool isSprinting = false;
 
     Vector2 moveDirection = Vector2.zero;
     Vector2 lookInput = Vector2.zero;
@@ -44,8 +48,22 @@ public class PlayerInput : MonoBehaviour
         sprintAction.Disable();
     }
 
+    public override void OnNetworkSpawn()
+    {
+        if (IsOwner)
+        {
+            //audioListener.enabled = true;
+            virtualCamera.Priority = 1;
+        }
+        else
+        {
+            virtualCamera.Priority = 0;
+        }
+    }
     private void Update()
     {
+        if (!IsOwner) return;
+
         moveDirection = movementAction.ReadValue<Vector2>();
         lookInput = lookAction.ReadValue<Vector2>();
 
@@ -60,6 +78,8 @@ public class PlayerInput : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!IsOwner) return;
+
         Vector3 forward = playerCamera.forward;
         Vector3 right = playerCamera.right;
 
