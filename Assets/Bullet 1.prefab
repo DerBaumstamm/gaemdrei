@@ -94,6 +94,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 36cf26677da2266489fbcf2bfa4b4b1d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4585757739926280174}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 36cf26677da2266489fbcf2bfa4b4b1d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7917157702275536513}
   m_SourcePrefab: {fileID: 100100000, guid: 36cf26677da2266489fbcf2bfa4b4b1d, type: 3}
 --- !u!1 &1635657212785678731 stripped
 GameObject:
@@ -223,11 +226,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d19ebe2878a40445b881ef914a24d2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parent: {fileID: 0}
   shootForce: 20
-  gravity: 9.8
-  recoilAngle: 5
   bulletSpawnPoint: {fileID: 2159710480314467121}
-  rb: {fileID: 6218190989959692985}
+  hitParticles: {fileID: 1632607991387131226, guid: e21380c28a25be940a8217689e4587df, type: 3}
+--- !u!114 &7917157702275536513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635657212785678731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afe69a767cfdd7941a17005a6bd1d46d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayBeforeDestroy: 5
 --- !u!4 &2159710480314467121 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 36cf26677da2266489fbcf2bfa4b4b1d, type: 3}

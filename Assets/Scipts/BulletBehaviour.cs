@@ -3,28 +3,36 @@ using UnityEngine;
 
 public class BulletBehavior : NetworkBehaviour
 {
+    public PistolShoot parent;
     [SerializeField] private float shootForce = 20f;
-    [SerializeField] private float gravity = 9.8f;
-    [SerializeField] private float recoilAngle = 5f;
     [SerializeField] private Transform bulletSpawnPoint;
-    [SerializeField] private Rigidbody rb;
-    private Quaternion initialRotation;
+    [SerializeField] private GameObject hitParticles;
+    private Rigidbody rb;
 
-    void OnTriggerEnter(Collider other)
+    void Start()
     {
-        // Check if the bullet hits anything
-        Destroy(gameObject);
+        rb = GetComponent<Rigidbody>();
+        //rb.AddForce(bulletSpawnPoint.forward * shootForce, ForceMode.Impulse);       
     }
 
-     void Start()
+    private void Update()
     {
-            rb.AddForce(bulletSpawnPoint.forward * shootForce, ForceMode.Impulse);
-            rb.AddForce(Vector3.down * gravity, ForceMode.Acceleration);
-
-        // Apply recoil by rotating the pistol upward
-        transform.localRotation = Quaternion.Euler(-recoilAngle, initialRotation.y, initialRotation.z);
-
-        // Destroy the bullet after a certain time (adjust as needed)
-        Destroy(gameObject, 3f);
+        rb.velocity = rb.transform.forward * shootForce;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!IsOwner) return;
+        instantiateParticleServerRpc();
+        parent.DestroyServerRpc();
+    }
+
+    [ServerRpc]
+    private void instantiateParticleServerRpc()
+    {
+        //GameObject hitImpact = Instantiate(hitParticles, transform.position, Quaternion.identity);
+        //hitImpact.GetComponent<NetworkObject>().Spawn();
+        //hitImpact.transform.localEulerAngles = new Vector3 (0f, 0f, -90f);
+    }
+
 }

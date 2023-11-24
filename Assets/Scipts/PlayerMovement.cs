@@ -14,30 +14,30 @@ public class PlayerInput : NetworkBehaviour
     [SerializeField] private InputAction jumpAction;
     [SerializeField] private InputAction sprintAction;
 
-
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private Transform playerCamera; // Reference to the camera
+    [SerializeField] private GameObject playerCamera;// Reference to the camera
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float sprintSpeed = 10f; // Adjust the sprinting speed
     [SerializeField] private float lookSpeed = 2f;
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float groundCheckDistance = 0.2f; // Distance to check if the player is grounded
     [SerializeField] private float groundHeight = 0.5f; // Y-coordinate value for the ground level 
+    [SerializeField] private float randomRange = 10f;
     [SerializeField] private bool isSprinting = false;
 
     Vector2 moveDirection = Vector2.zero;
     Vector2 lookInput = Vector2.zero;
 
-    void Start()
-    {
-       // Cursor.lockState = CursorLockMode.Locked;
-    }
     private void OnEnable()
     {
         movementAction.Enable();
         lookAction.Enable();
         jumpAction.Enable();
         sprintAction.Enable();
+        //if(IsLocalPlayer)
+        //{
+        //    playerCamera.gameObject.SetActive(true);
+        //}
     }
 
     private void OnDisable()
@@ -50,38 +50,34 @@ public class PlayerInput : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (IsOwner)
-        {
-            //audioListener.enabled = true;
-            virtualCamera.Priority = 1;
-        }
-        else
-        {
-            virtualCamera.Priority = 0;
-        }
+        Cursor.lockState = CursorLockMode.Locked;
+        updatePositionServerRpc();          
     }
     private void Update()
     {
-        if (!IsOwner) return;
-
-        moveDirection = movementAction.ReadValue<Vector2>();
+        if (!IsOwner) return;        
         lookInput = lookAction.ReadValue<Vector2>();
+        moveDirection = movementAction.ReadValue<Vector2>();
 
-        if (jumpAction.triggered && IsGrounded())
+        if (jumpAction.triggered && isGrounded())
         {
-            Jump();
+            jump();
         }
         isSprinting = sprintAction.ReadValue<float>() > 0.5f;
 
-        RotatePlayer();
+        if (transform.rotation.x <= 90f)
+        {
+            Vector3 rotation = new Vector3(0f, lookInput.x, 0f) * lookSpeed;
+            transform.rotation = transform.rotation * Quaternion.Euler(rotation);
+        }
     }
 
     private void FixedUpdate()
     {
         if (!IsOwner) return;
 
-        Vector3 forward = playerCamera.forward;
-        Vector3 right = playerCamera.right;
+        Vector3 forward = playerCamera.transform.forward;
+        Vector3 right = playerCamera.transform.right;
 
         forward.y = 0f;
         right.y = 0f;
@@ -93,25 +89,23 @@ public class PlayerInput : NetworkBehaviour
         float speed = isSprinting ? moveSpeed : sprintSpeed;
 
         Vector3 desiredMoveDirection = forward * moveDirection.y + right * moveDirection.x;
-        rb.velocity = new Vector3(desiredMoveDirection.x * speed, rb.velocity.y, desiredMoveDirection.z * speed);
+        rb.velocity = new Vector3(desiredMoveDirection.x * speed, rb.velocity.y, desiredMoveDirection.z * speed);   
     }
 
-    private void Jump()
+    private void jump()
     {
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
-    private bool IsGrounded()
+    private bool isGrounded()
     {
         // Use a raycast to check if the player is grounded
         return Physics.Raycast(transform.position, Vector3.down, groundCheckDistance + groundHeight);
     }
 
-
-    private void RotatePlayer()
+    [ServerRpc(RequireOwnership = false)]
+    private void updatePositionServerRpc()
     {
-        // Adjust the player's rotation based on mouse input
-        Vector3 rotation = new Vector3(0f, lookInput.x, 0f) * lookSpeed;
-        rb.MoveRotation(rb.rotation * Quaternion.Euler(rotation));
+        transform.position = new Vector3(Random.Range(-randomRange, randomRange), 1, Random.Range(-randomRange, randomRange));
     }
 }
