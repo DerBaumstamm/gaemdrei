@@ -43,7 +43,7 @@ public class PistolShoot : NetworkBehaviour
         GameObject bulletPrefabTransform = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         spawnedBullets.Add(bulletPrefabTransform);
         bulletPrefabTransform.GetComponent<BulletBehavior>().parent = this;
-        bulletPrefabTransform.GetComponent<NetworkObject>().Spawn(true);
+        bulletPrefabTransform.GetComponent<NetworkObject>().Spawn();
     }
 
     [ServerRpc(RequireOwnership = false)]

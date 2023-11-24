@@ -22,7 +22,6 @@ public class PlayerInput : NetworkBehaviour
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float groundCheckDistance = 0.2f; // Distance to check if the player is grounded
     [SerializeField] private float groundHeight = 0.5f; // Y-coordinate value for the ground level 
-    [SerializeField] private float randomRange = 10f;
     [SerializeField] private bool isSprinting = false;
 
     Vector2 moveDirection = Vector2.zero;
@@ -34,10 +33,6 @@ public class PlayerInput : NetworkBehaviour
         lookAction.Enable();
         jumpAction.Enable();
         sprintAction.Enable();
-        //if(IsLocalPlayer)
-        //{
-        //    playerCamera.gameObject.SetActive(true);
-        //}
     }
 
     private void OnDisable()
@@ -55,7 +50,8 @@ public class PlayerInput : NetworkBehaviour
     }
     private void Update()
     {
-        if (!IsOwner) return;        
+        if (!IsOwner) return;
+        
         lookInput = lookAction.ReadValue<Vector2>();
         moveDirection = movementAction.ReadValue<Vector2>();
 
@@ -105,7 +101,7 @@ public class PlayerInput : NetworkBehaviour
 
     [ServerRpc(RequireOwnership = false)]
     private void updatePositionServerRpc()
-    {
-        transform.position = new Vector3(Random.Range(-randomRange, randomRange), 1, Random.Range(-randomRange, randomRange));
+    {      
+        transform.position = new Vector3(OwnerClientId * 4, 1, 0);
     }
 }

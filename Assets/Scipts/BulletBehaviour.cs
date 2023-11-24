@@ -12,12 +12,7 @@ public class BulletBehavior : NetworkBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        //rb.AddForce(bulletSpawnPoint.forward * shootForce, ForceMode.Impulse);       
-    }
-
-    private void Update()
-    {
-        rb.velocity = rb.transform.forward * shootForce;
+        rb.AddForce(bulletSpawnPoint.forward * shootForce, ForceMode.Impulse);       
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,9 +25,9 @@ public class BulletBehavior : NetworkBehaviour
     [ServerRpc]
     private void instantiateParticleServerRpc()
     {
-        //GameObject hitImpact = Instantiate(hitParticles, transform.position, Quaternion.identity);
-        //hitImpact.GetComponent<NetworkObject>().Spawn();
-        //hitImpact.transform.localEulerAngles = new Vector3 (0f, 0f, -90f);
+        GameObject hitImpact = Instantiate(hitParticles, transform.position, Quaternion.identity);
+        hitImpact.GetComponent<NetworkObject>().Spawn();
+        hitImpact.transform.localEulerAngles = new Vector3 (0f, 0f, -90f);
     }
 
 }

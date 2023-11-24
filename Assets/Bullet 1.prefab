@@ -229,7 +229,7 @@ MonoBehaviour:
   parent: {fileID: 0}
   shootForce: 20
   bulletSpawnPoint: {fileID: 2159710480314467121}
-  hitParticles: {fileID: 1632607991387131226, guid: e21380c28a25be940a8217689e4587df, type: 3}
+  hitParticles: {fileID: 919132149155446097, guid: 534f7548349263883a4ba9af887322bc, type: 3}
 --- !u!114 &7917157702275536513
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class AutoDestroy : NetworkBehaviour
 
     void Start()
     {
-        Invoke("destroyObjectsServerRpc", delayBeforeDestroy);
+        Invoke(nameof(destroyObjectsServerRpc), delayBeforeDestroy);
     }
 
     [ServerRpc(RequireOwnership = false)]
