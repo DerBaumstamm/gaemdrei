@@ -9,8 +9,20 @@ EditorBuildSettings:
     path: Assets/Scenes/Multiplayer Ingame.unity
     guid: c167c370afbb7884b8a7c673bc5020ee
   - enabled: 1
-    path: Assets/Scenes/Netcode.unity
+    path: Assets/01 Scenes/MainMenu.unity
+    guid: 22e48fc371e835244913e9e82cd7a3c1
+  - enabled: 1
+    path: Assets/01 Scenes/LobbyMenu.unity
+    guid: a42f6cb5053daff48b5cc514fbe3cf95
+  - enabled: 1
+    path: Assets/01 Scenes/CharacterSelect.unity
+    guid: e6643a904906c345a85d6f1cef41c78b
+  - enabled: 1
+    path: Assets/01 Scenes/GameMP.unity
     guid: f8b8158680c36ee409e6557f32cbb6cf
+  - enabled: 0
+    path: Assets/01 Scenes/GameSP.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: d8bdf6286003f2c40b80e8f4c0760cf6, type: 2}
     io.coherence.simulator.build.options: {fileID: 11400000, guid: 5676cb87736e2ef4cb0cdc86993ec3fb, type: 2}

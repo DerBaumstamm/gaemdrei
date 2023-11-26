@@ -25,7 +25,7 @@ MonoBehaviour:
   bakeMode: 0
   runtimeSettingsGuid: 60aeafa2ec2bd2c4f934b1a3c94781b9
   schemaBakeGenerateAsmdef: 0
-  reportAnalytics: 1
+  reportAnalytics: 0
   configRegistryMode: 0
   useToolkit: 1
   useCoherenceSyncSchema: 1
