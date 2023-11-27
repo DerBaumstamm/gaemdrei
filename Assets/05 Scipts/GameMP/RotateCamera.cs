@@ -26,9 +26,9 @@ public class RotateCamera : NetworkBehaviour
     void Update()
     {
         if (!IsOwner) return;
-        lookInput = lookAction.ReadValue<Vector2>();       
+        lookInput = lookAction.ReadValue<Vector2>();
         Vector3 rotation = new Vector3(-lookInput.y, 0f, 0f) * lookSpeed;
-        transform.rotation = transform.rotation * Quaternion.Euler(rotation);   
+        transform.rotation = transform.rotation * Quaternion.Euler(rotation);
     }
 
     private void enableCamera()

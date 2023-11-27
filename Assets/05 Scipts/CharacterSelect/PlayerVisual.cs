@@ -7,20 +7,24 @@ using UnityEngine.UIElements;
 public class PlayerVisual : MonoBehaviour
 {
     [SerializeField] private MeshRenderer bodyMeshRenderer;
-    private Material material;
+    [SerializeField] private MeshRenderer topBottomMeshRenderer;
+    private Material bodyMaterial;
+    private Material topBottomMaterial;
 
     private void Awake()
     {
-        material = new Material(bodyMeshRenderer.material);
-        bodyMeshRenderer.material = material;
+        bodyMaterial = new Material(bodyMeshRenderer.material);
+        topBottomMaterial = new Material(topBottomMeshRenderer.material);
+        bodyMeshRenderer.material = bodyMaterial;
+        topBottomMeshRenderer.material = topBottomMaterial;
     }
 
     public void SetPlayerColor(Color color)
     {
-        material.color = color;
+        topBottomMaterial.color = color;
     }
     public void SetPlayerMaterial(Material mat)
     {
-        material.mainTexture = mat.mainTexture;
+        bodyMaterial.mainTexture = mat.mainTexture;
     }
 }

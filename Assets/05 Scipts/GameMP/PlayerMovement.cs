@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Cinemachine;
 
 public class PlayerInput : NetworkBehaviour
 {
@@ -17,6 +15,7 @@ public class PlayerInput : NetworkBehaviour
     [SerializeField] private GameObject playerCamera;
     [SerializeField] private List<Vector3> spawnPositionList;
     [SerializeField] private Animator animator;
+    private Camera cam;
 
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float sprintSpeed = 10f; 
@@ -33,10 +32,12 @@ public class PlayerInput : NetworkBehaviour
 
     private void OnEnable()
     {
+        cam = playerCamera.GetComponent<Camera>();
         movementAction.Enable();
         lookAction.Enable();
         jumpAction.Enable();
         sprintAction.Enable();
+        Invoke(nameof(enableCamera), .1f);
     }
 
     private void OnDisable()
@@ -53,6 +54,7 @@ public class PlayerInput : NetworkBehaviour
         transform.position = spawnPositionList[GameMultiplayer.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)];
         PlayerData playerData = GameMultiplayer.Instance.GetPlayerDataFromClientId(OwnerClientId);
         playerVisual.SetPlayerColor(GameMultiplayer.Instance.GetPlayerColor(playerData.colorId));
+        playerVisual.SetPlayerMaterial(GameMultiplayer.Instance.GetPlayerMaterial(playerData.colorId));
         Debug.Log(playerData.playerId.ToString());
     }
     private void Update()
@@ -68,11 +70,12 @@ public class PlayerInput : NetworkBehaviour
         }
         isSprinting = sprintAction.ReadValue<float>() > 0.5f;
 
-        if (transform.rotation.x <= 90f)
-        {
-            Vector3 rotation = new Vector3(0f, lookInput.x, 0f) * lookSpeed;
-            transform.rotation = transform.rotation * Quaternion.Euler(rotation);
-        }
+
+        Vector3 bodyRotation = new Vector3(0, lookInput.x, 0) * lookSpeed;
+        transform.rotation = transform.rotation * Quaternion.Euler(bodyRotation);
+        Vector3 cameraRotation = new Vector3(-lookInput.y, 0, 0) * lookSpeed;
+        playerCamera.transform.rotation = playerCamera.transform.rotation * Quaternion.Euler(cameraRotation);
+
     }
 
     private void FixedUpdate()
@@ -106,5 +109,13 @@ public class PlayerInput : NetworkBehaviour
     {
         // Use a raycast to check if the player is grounded
         return Physics.Raycast(transform.position, Vector3.down, groundCheckDistance + groundHeight);
+    }
+
+    private void enableCamera()
+    {
+        if (IsOwner)
+        {
+            cam.enabled = true;
+        }
     }
 }

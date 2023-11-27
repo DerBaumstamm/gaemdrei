@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 1683550362191482489}
   - component: {fileID: 5375316747611862718}
   - component: {fileID: 1457902059402571248}
+  - component: {fileID: 9085895537193593896}
   m_Layer: 0
   m_Name: Player Netcode
   m_TagString: Untagged
@@ -360,6 +361,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: {fileID: 7819032102585950441}
+--- !u!114 &9085895537193593896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1750471688903672898}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ee83e37fec57484b8613e2d2c1497b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookAction:
+    m_Name: Look
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: e7be324f-fa7f-423e-8a2d-4e1b2139ea9b
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 5ee8837a-6143-4bfe-a5e5-695cf64a24e3
+      m_Path: <Mouse>/delta
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Look
+      m_Flags: 0
+    m_Flags: 0
+  lookSpeed: 0.1
+  cam: {fileID: 3708956926783391645}
 --- !u!1 &2364168287792027450
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,7 +509,6 @@ GameObject:
   - component: {fileID: 5818714132028666187}
   - component: {fileID: 3708956926783391645}
   - component: {fileID: 6771798571841599345}
-  - component: {fileID: 3186184262819840784}
   - component: {fileID: 3101539773861017534}
   m_Layer: 0
   m_Name: Main Camera
@@ -562,37 +593,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3314818606218488930}
   m_Enabled: 0
---- !u!114 &3186184262819840784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3314818606218488930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ee83e37fec57484b8613e2d2c1497b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lookAction:
-    m_Name: Look
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: e7be324f-fa7f-423e-8a2d-4e1b2139ea9b
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 5ee8837a-6143-4bfe-a5e5-695cf64a24e3
-      m_Path: <Mouse>/delta
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Look
-      m_Flags: 0
-    m_Flags: 0
-  lookSpeed: 0.1
-  cam: {fileID: 3708956926783391645}
 --- !u!114 &3101539773861017534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -750,6 +750,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1925650533112785683}
+  - component: {fileID: 383794073028901270}
+  - component: {fileID: 6532278835538433838}
   m_Layer: 0
   m_Name: Bullet Spawnpoint
   m_TagString: Untagged
@@ -772,6 +774,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5818714132028666187}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &383794073028901270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6341944832811600172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df2868252ab5c4d1da357e8f11f1b524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  Interpolate: 1
+  SlerpPosition: 0
+--- !u!114 &6532278835538433838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6341944832811600172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1982098672
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &6708308931592062153
 GameObject:
   m_ObjectHideFlags: 0
@@ -950,6 +1002,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 65c2f5acc67c3be4ba7a4fb7ce866139, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9206789193576048663}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 65c2f5acc67c3be4ba7a4fb7ce866139, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 286836572853039634}
   m_SourcePrefab: {fileID: 100100000, guid: 65c2f5acc67c3be4ba7a4fb7ce866139, type: 3}
 --- !u!1 &1710593148797046868 stripped
 GameObject:
@@ -974,9 +1029,9 @@ MonoBehaviour:
   SyncRotAngleX: 1
   SyncRotAngleY: 1
   SyncRotAngleZ: 1
-  SyncScaleX: 1
-  SyncScaleY: 1
-  SyncScaleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
   PositionThreshold: 0.001
   RotAngleThreshold: 0.01
   ScaleThreshold: 0.01
@@ -986,6 +1041,26 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &286836572853039634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710593148797046868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1982098672
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!4 &2087119133697346286 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 65c2f5acc67c3be4ba7a4fb7ce866139, type: 3}

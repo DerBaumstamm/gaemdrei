@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465878, g: 0.4964224, b: 0.57482475, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -179,6 +179,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Offline
       objectReference: {fileID: 0}
+    - target: {fileID: 9019976788347533520, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
+      propertyPath: bodyMeshRenderer
+      value: 
+      objectReference: {fileID: 162523978}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -198,6 +202,11 @@ MonoBehaviour:
 --- !u!4 &162523977 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1081838233700129874, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
+  m_PrefabInstance: {fileID: 162523975}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &162523978 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7627048202833450102, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
   m_PrefabInstance: {fileID: 162523975}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &228010381
@@ -537,12 +546,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 392924007}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 392924007}
+  m_maskType: 0
 --- !u!23 &392924007
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -708,12 +717,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 400266377}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 400266377}
+  m_maskType: 0
 --- !u!23 &400266377
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -827,6 +836,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Offline
       objectReference: {fileID: 0}
+    - target: {fileID: 9019976788347533520, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
+      propertyPath: bodyMeshRenderer
+      value: 
+      objectReference: {fileID: 402404518}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -846,6 +859,11 @@ MonoBehaviour:
 --- !u!4 &402404517 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1081838233700129874, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
+  m_PrefabInstance: {fileID: 402404515}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &402404518 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7627048202833450102, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
   m_PrefabInstance: {fileID: 402404515}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &452463633
@@ -2819,12 +2837,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 1093186879}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 1093186879}
+  m_maskType: 0
 --- !u!23 &1093186879
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3513,12 +3531,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 1308425525}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 1308425525}
+  m_maskType: 0
 --- !u!23 &1308425525
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3799,12 +3817,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 1430667288}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 1430667288}
+  m_maskType: 0
 --- !u!23 &1430667288
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4549,6 +4567,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Offline
       objectReference: {fileID: 0}
+    - target: {fileID: 9019976788347533520, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
+      propertyPath: bodyMeshRenderer
+      value: 
+      objectReference: {fileID: 1733614633}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4568,6 +4590,11 @@ MonoBehaviour:
 --- !u!4 &1733614632 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1081838233700129874, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
+  m_PrefabInstance: {fileID: 1733614630}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1733614633 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7627048202833450102, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
   m_PrefabInstance: {fileID: 1733614630}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1739316639
@@ -5019,6 +5046,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Offline
       objectReference: {fileID: 0}
+    - target: {fileID: 9019976788347533520, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
+      propertyPath: bodyMeshRenderer
+      value: 
+      objectReference: {fileID: 1840776831}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5038,6 +5069,11 @@ MonoBehaviour:
 --- !u!4 &1840776830 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1081838233700129874, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
+  m_PrefabInstance: {fileID: 1840776828}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1840776831 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7627048202833450102, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
   m_PrefabInstance: {fileID: 1840776828}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1856945026
@@ -5197,12 +5233,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 1882878865}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 1882878865}
+  m_maskType: 0
 --- !u!23 &1882878865
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5807,12 +5843,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 2032348603}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 2032348603}
+  m_maskType: 0
 --- !u!23 &2032348603
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6096,12 +6132,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_renderer: {fileID: 2106499589}
-  m_maskType: 0
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+  m_hasFontAssetChanged: 0
+  m_renderer: {fileID: 2106499589}
+  m_maskType: 0
 --- !u!23 &2106499589
 MeshRenderer:
   m_ObjectHideFlags: 0

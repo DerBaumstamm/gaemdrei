@@ -10,8 +10,7 @@ public class PistolShoot : NetworkBehaviour
     [SerializeField] private InputAction shootAction;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform bulletSpawnPoint;
-    [SerializeField] private float fireRate = 0.5f;
-
+    [SerializeField] private float fireRate = 0.5f;  
     [SerializeField] private List<GameObject> spawnedBullets = new();
 
     private float nextFireTime = 0f;

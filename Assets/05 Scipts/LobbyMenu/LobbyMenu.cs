@@ -169,6 +169,7 @@ public class LobbyMenu : MonoBehaviour
         {
             joinedLobby = await LobbyService.Instance.QuickJoinLobbyAsync();
             string relayJoinCode = joinedLobby.Data[KEY_RELAY_JOIN_CODE].Value;
+            Debug.Log(relayJoinCode);
             JoinAllocation joinAllocation = await JoinRelay(relayJoinCode);
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
             GameMultiplayer.Instance.StartClient();
@@ -202,10 +203,10 @@ public class LobbyMenu : MonoBehaviour
         OnJoinStarted?.Invoke(this, EventArgs.Empty);
         try
         {
+            joinedLobby = await LobbyService.Instance.JoinLobbyByIdAsync(lobbyId);
             string relayJoinCode = joinedLobby.Data[KEY_RELAY_JOIN_CODE].Value;
             JoinAllocation joinAllocation = await JoinRelay(relayJoinCode);
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
-            joinedLobby = await LobbyService.Instance.JoinLobbyByIdAsync(lobbyId);
             GameMultiplayer.Instance.StartClient();
         }
         catch (LobbyServiceException e)
