@@ -260,8 +260,10 @@ MonoBehaviour:
   rb: {fileID: 8403485119892809797}
   playerCamera: {fileID: 3314818606218488930}
   spawnPositionList:
-  - {x: -2, y: 1, z: 0}
-  - {x: 2, y: 1, z: 0}
+  - {x: 2, y: 1, z: 2}
+  - {x: 2, y: 1, z: -2}
+  - {x: -2, y: 1, z: -2}
+  - {x: -2, y: 1, z: 2}
   animator: {fileID: 9043856002575356752}
   moveSpeed: 15
   sprintSpeed: 10
@@ -605,7 +607,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectsToHide:
   - {fileID: 5771682896079298459}
-  - {fileID: 0}
 --- !u!1 &3424391071930878884
 GameObject:
   m_ObjectHideFlags: 0

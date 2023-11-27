@@ -26,18 +26,20 @@ public class LobbyMessageUI : MonoBehaviour
         LobbyMenu.Instance.OnJoinStarted += GameLobby_OnJoinStarted;
         LobbyMenu.Instance.OnJoinFailed += GameLobby_OnJoinFailed;
         LobbyMenu.Instance.OnQuickJoinFailed += GameLobby_OnQuickJoinFailed;
-
+        closeButton.gameObject.SetActive(false);
         Hide();
     }
 
     private void GameLobby_OnQuickJoinFailed(object sender, System.EventArgs e)
     {
         ShowMessage("Could not find a Lobby to Quick Join!");
+        closeButton.gameObject.SetActive(true);
     }
 
     private void GameLobby_OnJoinFailed(object sender, System.EventArgs e)
     {
         ShowMessage("Failed to join Lobby!");
+        closeButton.gameObject.SetActive(true);
     }
 
     private void GameLobby_OnJoinStarted(object sender, System.EventArgs e)
@@ -48,6 +50,7 @@ public class LobbyMessageUI : MonoBehaviour
     private void GameLobby_OnCreateLobbyFailed(object sender, System.EventArgs e)
     {
         ShowMessage("Failed to create Lobby!");
+        closeButton.gameObject.SetActive(true);
     }
 
     private void GameLobby_OnCreateLobbyStarted(object sender, System.EventArgs e)
@@ -60,10 +63,12 @@ public class LobbyMessageUI : MonoBehaviour
         if (NetworkManager.Singleton.DisconnectReason == "")
         {
             ShowMessage("Failed to connect");
+            closeButton.gameObject.SetActive(true);
         }
         else
         {
             ShowMessage(NetworkManager.Singleton.DisconnectReason);
+            closeButton.gameObject.SetActive(true);
         }
     }
 
@@ -81,6 +86,7 @@ public class LobbyMessageUI : MonoBehaviour
     private void Hide()
     {
         gameObject.SetActive(false);
+        closeButton.gameObject.SetActive(false);
     }
 
     private void OnDestroy()
