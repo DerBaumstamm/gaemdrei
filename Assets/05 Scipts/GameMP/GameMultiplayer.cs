@@ -17,6 +17,7 @@ public class GameMultiplayer : NetworkBehaviour
     public event EventHandler OnFailedToJoinGame;
     public event EventHandler OnPlayerDataNetworkListChanged;
     [SerializeField] private List<Color> playerColorList;
+    [SerializeField] private List<Material> playerMaterialList;
     private NetworkList<PlayerData> playerDataNetworkList;
     private string playerName;
 
@@ -175,6 +176,10 @@ public class GameMultiplayer : NetworkBehaviour
     public Color GetPlayerColor(int colorId)
     {
         return playerColorList[colorId];
+    }
+    public Material GetPlayerMaterial(int colorId)
+    {
+        return playerMaterialList[colorId];
     }
 
     public void ChangePlayerColor(int colorId)

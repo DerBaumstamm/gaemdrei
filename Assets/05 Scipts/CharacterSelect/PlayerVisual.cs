@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class PlayerVisual : MonoBehaviour
 {
@@ -16,5 +18,9 @@ public class PlayerVisual : MonoBehaviour
     public void SetPlayerColor(Color color)
     {
         material.color = color;
+    }
+    public void SetPlayerMaterial(Material mat)
+    {
+        material.mainTexture = mat.mainTexture;
     }
 }

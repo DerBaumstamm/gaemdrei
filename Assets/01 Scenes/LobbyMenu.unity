@@ -2623,16 +2623,15 @@ MonoBehaviour:
   - {r: 1, g: 0, b: 0.7731252, a: 1}
   - {r: 1, g: 1, b: 1, a: 1}
   playerMaterialList:
-  - {fileID: 2100000, guid: 1f48c0b544082a44f85be79a11a7a784, type: 2}
-  - {fileID: 2100000, guid: 8a9e462cf7489bd42acff92a3eb7bd4c, type: 2}
-  - {fileID: 2100000, guid: 27c9a1265dcd7724eb244fe08bbc7e6e, type: 2}
-  - {fileID: 2100000, guid: 27c9a1265dcd7724eb244fe08bbc7e6e, type: 2}
-  - {fileID: 2100000, guid: 27c9a1265dcd7724eb244fe08bbc7e6e, type: 2}
-  - {fileID: 2100000, guid: 27c9a1265dcd7724eb244fe08bbc7e6e, type: 2}
-  - {fileID: 2100000, guid: 27c9a1265dcd7724eb244fe08bbc7e6e, type: 2}
-  - {fileID: 2100000, guid: 27c9a1265dcd7724eb244fe08bbc7e6e, type: 2}
-  - {fileID: 2100000, guid: 27c9a1265dcd7724eb244fe08bbc7e6e, type: 2}
-  - {fileID: 2100000, guid: 27c9a1265dcd7724eb244fe08bbc7e6e, type: 2}
+  - {fileID: 2100000, guid: 500f84921f8b1b54eb5024178e202943, type: 2}
+  - {fileID: 2100000, guid: 0a39bdb844c23504b855a6bd3771d2af, type: 2}
+  - {fileID: 2100000, guid: 500f84921f8b1b54eb5024178e202943, type: 2}
+  - {fileID: 2100000, guid: 0a39bdb844c23504b855a6bd3771d2af, type: 2}
+  - {fileID: 2100000, guid: 500f84921f8b1b54eb5024178e202943, type: 2}
+  - {fileID: 2100000, guid: 0a39bdb844c23504b855a6bd3771d2af, type: 2}
+  - {fileID: 2100000, guid: 500f84921f8b1b54eb5024178e202943, type: 2}
+  - {fileID: 2100000, guid: 0a39bdb844c23504b855a6bd3771d2af, type: 2}
+  - {fileID: 2100000, guid: 500f84921f8b1b54eb5024178e202943, type: 2}
 --- !u!114 &900314251
 MonoBehaviour:
   m_ObjectHideFlags: 0
