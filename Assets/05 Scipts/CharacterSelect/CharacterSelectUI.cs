@@ -30,7 +30,7 @@ public class CharacterSelectUI : NetworkBehaviour
     private void Start()
     {
         Lobby lobby = LobbyMenu.Instance.GetLobby();
-        lobbyNameText.text = lobby.Name;
-        lobbyCodeText.text = lobby.LobbyCode;
+        lobbyNameText.text = "Lobby Name: " + lobby.Name;
+        lobbyCodeText.text = "Lobby Code: " + lobby.LobbyCode;
     }
 }

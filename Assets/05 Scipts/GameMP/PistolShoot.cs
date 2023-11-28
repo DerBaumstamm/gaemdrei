@@ -50,7 +50,10 @@ public class PistolShoot : NetworkBehaviour
     {
         GameObject toDestroy = spawnedBullets[0];
         toDestroy.GetComponent<NetworkObject>().Despawn();
-        spawnedBullets.Remove(toDestroy);
+        if(toDestroy != null)
+        {
+            spawnedBullets.Remove(toDestroy);
+        }
         Destroy(toDestroy);
     }
 }

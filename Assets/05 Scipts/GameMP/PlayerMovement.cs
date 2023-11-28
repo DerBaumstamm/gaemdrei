@@ -10,7 +10,6 @@ public class PlayerInput : NetworkBehaviour
     [SerializeField] private InputAction jumpAction;
     [SerializeField] private InputAction sprintAction;
 
-    [SerializeField] private PlayerVisual playerVisual;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private GameObject playerCamera;
     [SerializeField] private List<Vector3> spawnPositionList;
@@ -51,11 +50,7 @@ public class PlayerInput : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         Cursor.lockState = CursorLockMode.Locked;          
-        transform.position = spawnPositionList[GameMultiplayer.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)];
-        PlayerData playerData = GameMultiplayer.Instance.GetPlayerDataFromClientId(OwnerClientId);
-        playerVisual.SetPlayerColor(GameMultiplayer.Instance.GetPlayerColor(playerData.colorId));
-        playerVisual.SetPlayerMaterial(GameMultiplayer.Instance.GetPlayerMaterial(playerData.colorId));
-        Debug.Log(playerData.playerId.ToString());
+        transform.position = spawnPositionList[GameMultiplayer.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)];      
     }
     private void Update()
     {

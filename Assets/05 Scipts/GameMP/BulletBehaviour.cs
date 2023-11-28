@@ -7,6 +7,7 @@ public class BulletBehavior : NetworkBehaviour
     [SerializeField] private float shootForce = 20f;
     [SerializeField] private Transform bulletSpawnPoint;
     [SerializeField] private GameObject hitParticles;
+    [SerializeField] private LayerMask playerLayer;
     private Rigidbody rb;
 
     void Start()
@@ -18,6 +19,16 @@ public class BulletBehavior : NetworkBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!IsOwner) return;
+        if(other.gameObject.layer == playerLayer)
+        {
+            GameMultiplayer.Instance.AddPlayerScore(1);
+            PlayerManager.Instance.updatePlayerCounter();
+            Debug.Log("hit player");
+        }
+        else
+        {
+            Debug.Log("no hit player");
+        }
         //instantiateParticleServerRpc();
         parent.DestroyServerRpc();
     }

@@ -227,6 +227,33 @@ public class GameMultiplayer : NetworkBehaviour
         return -1;
     }
 
+    public void SetPlayerScore(int score)
+    {
+        SetPlayerScoreServerRpc(score);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SetPlayerScoreServerRpc(int score, ServerRpcParams serverRpcParams = default)
+    {
+        int playerDataIndex = GetPlayerDataIndexFromClientId(serverRpcParams.Receive.SenderClientId);
+        PlayerData playerData = playerDataNetworkList[playerDataIndex];
+        playerData.score = score;
+        playerDataNetworkList[playerDataIndex] = playerData;
+    }
+    public void AddPlayerScore(int score)
+    {
+        AddPlayerScoreServerRpc(score);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void AddPlayerScoreServerRpc(int score, ServerRpcParams serverRpcParams = default)
+    {
+        int playerDataIndex = GetPlayerDataIndexFromClientId(serverRpcParams.Receive.SenderClientId);
+        PlayerData playerData = playerDataNetworkList[playerDataIndex];
+        playerData.score += score;
+        playerDataNetworkList[playerDataIndex] = playerData;
+    }
+
     public void KickPlayer(ulong clientId)
     {
         NetworkManager.Singleton.DisconnectClient(clientId);
