@@ -7,7 +7,7 @@ public class BulletBehavior : NetworkBehaviour
     [SerializeField] private float shootForce = 20f;
     [SerializeField] private Transform bulletSpawnPoint;
     [SerializeField] private GameObject hitParticles;
-    [SerializeField] private LayerMask playerLayer;
+    //[SerializeField] private LayerMask playerLayer;
     private Rigidbody rb;
 
     void Start()
@@ -16,14 +16,13 @@ public class BulletBehavior : NetworkBehaviour
         rb.AddForce(bulletSpawnPoint.forward * shootForce, ForceMode.Impulse);       
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider collider)
     {
         if (!IsOwner) return;
-        if(other.gameObject.layer == playerLayer)
-        {
-            GameMultiplayer.Instance.AddPlayerScore(1);
-            PlayerManager.Instance.updatePlayerCounter();
-            Debug.Log("hit player");
+        if(collider.tag == "Player")
+        {           
+            parent.updatePlayerScore();
+            Debug.Log("hit player");          
         }
         else
         {
@@ -31,6 +30,7 @@ public class BulletBehavior : NetworkBehaviour
         }
         //instantiateParticleServerRpc();
         parent.DestroyServerRpc();
+        //Destroy(gameObject);
     }
 
     [ServerRpc]

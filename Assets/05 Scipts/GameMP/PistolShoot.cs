@@ -4,6 +4,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using System;
+using UnityEngine.SocialPlatforms.Impl;
+using TMPro;
 
 public class PistolShoot : NetworkBehaviour
 {
@@ -12,6 +15,7 @@ public class PistolShoot : NetworkBehaviour
     [SerializeField] private Transform bulletSpawnPoint;
     [SerializeField] private float fireRate = 0.5f;  
     [SerializeField] private List<GameObject> spawnedBullets = new();
+    [SerializeField] private TMP_Text scoreUi;
 
     private float nextFireTime = 0f;
 
@@ -23,6 +27,11 @@ public class PistolShoot : NetworkBehaviour
     private void OnDisable()
     {
         shootAction.Disable();
+    }
+
+    private void Awake()
+    {
+        scoreUi.enabled = false;
     }
 
     void Update()
@@ -55,5 +64,14 @@ public class PistolShoot : NetworkBehaviour
             spawnedBullets.Remove(toDestroy);
         }
         Destroy(toDestroy);
+    }
+
+    public void updatePlayerScore()
+    {
+        if (!IsOwner) return;
+        scoreUi.enabled = true;
+        GameMultiplayer.Instance.AddPlayerScore(1,OwnerClientId);
+        PlayerData playerData = GameMultiplayer.Instance.GetPlayerDataFromClientId(OwnerClientId);
+        scoreUi.text = playerData.score.ToString();
     }
 }

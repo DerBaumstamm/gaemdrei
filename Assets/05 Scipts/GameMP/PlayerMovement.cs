@@ -50,7 +50,7 @@ public class PlayerInput : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         Cursor.lockState = CursorLockMode.Locked;          
-        transform.position = spawnPositionList[GameMultiplayer.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)];      
+        transform.position = spawnPositionList[GameMultiplayer.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)];    
     }
     private void Update()
     {
@@ -69,6 +69,7 @@ public class PlayerInput : NetworkBehaviour
         Vector3 bodyRotation = new Vector3(0, lookInput.x, 0) * lookSpeed;
         transform.rotation = transform.rotation * Quaternion.Euler(bodyRotation);
         Vector3 cameraRotation = new Vector3(-lookInput.y, 0, 0) * lookSpeed;
+        cameraRotation.x = Mathf.Clamp(cameraRotation.x, -90, 90);
         playerCamera.transform.rotation = playerCamera.transform.rotation * Quaternion.Euler(cameraRotation);
 
     }
@@ -109,7 +110,7 @@ public class PlayerInput : NetworkBehaviour
     private void enableCamera()
     {
         if (IsOwner)
-        {
+        {          
             cam.enabled = true;
         }
     }

@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -621.3, y: 333.65}
+  m_AnchoredPosition: {x: -621.3, y: 338}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &982426834913001268
@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 2478660858580885534}
   m_Layer: 0
   m_Name: Player Netcode
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -483,6 +483,7 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 1925650533112785683}
   fireRate: 3
   spawnedBullets: []
+  scoreUi: {fileID: 6075726608628564999}
 --- !u!114 &1457902059402571248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -540,7 +541,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerVisual: {fileID: 3132702926442909116}
-  scoreUi: {fileID: 6075726608628564999}
 --- !u!1 &2364168287792027450
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,6 +1357,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5988683204912517145}
     m_Modifications:
+    - target: {fileID: 454263969021750007, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1081838233700129874, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1399,19 +1403,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2519330624119209346, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2519330624119209346, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3170228045966842106, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3170228045966842106, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6083355603827558080, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
       propertyPath: m_Name
       value: PlayerVisual
       objectReference: {fileID: 0}
+    - target: {fileID: 6083355603827558080, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 8252485270468796430, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8252485270468796430, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8856542171763790083, guid: 5ba57af730502ce4ea8dc0f779701845, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

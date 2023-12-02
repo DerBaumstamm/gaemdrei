@@ -240,18 +240,25 @@ public class GameMultiplayer : NetworkBehaviour
         playerData.score = score;
         playerDataNetworkList[playerDataIndex] = playerData;
     }
-    public void AddPlayerScore(int score)
+    public void AddPlayerScore(int score, ulong clientId)
     {
-        AddPlayerScoreServerRpc(score);
+        AddPlayerScoreServerRpc(score, clientId);
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void AddPlayerScoreServerRpc(int score, ServerRpcParams serverRpcParams = default)
+    private void AddPlayerScoreServerRpc(int score, ulong clientId,ServerRpcParams serverRpcParams = default)
     {
-        int playerDataIndex = GetPlayerDataIndexFromClientId(serverRpcParams.Receive.SenderClientId);
+        int playerDataIndex = GetPlayerDataIndexFromClientId(clientId);
         PlayerData playerData = playerDataNetworkList[playerDataIndex];
         playerData.score += score;
         playerDataNetworkList[playerDataIndex] = playerData;
+
+        //Debug.Log("GameMultiplayer: " + clientId);
+
+        //int playerDataIndex = GetPlayerDataIndexFromClientId(serverRpcParams.Receive.SenderClientId);
+        //PlayerData playerData = playerDataNetworkList[playerDataIndex];
+        //playerData.score += score;
+        //playerDataNetworkList[playerDataIndex] = playerData;
     }
 
     public void KickPlayer(ulong clientId)

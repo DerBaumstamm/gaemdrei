@@ -67,5 +67,8 @@ public class CharacterSelectPlayer : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-    
+    private void OnDestroy()
+    {
+        GameMultiplayer.Instance.OnPlayerDataNetworkListChanged -= GameMultiplayer_PlayerDataNetworkList_OnListChanged;
+    }
 }
