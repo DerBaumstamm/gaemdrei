@@ -13,9 +13,11 @@ public class GameMultiplayer : NetworkBehaviour
 
     public static GameMultiplayer Instance { get; private set; }
     public static bool playMultiplayer = true;
+
     public event EventHandler OnTryingToJoinGame;
     public event EventHandler OnFailedToJoinGame;
     public event EventHandler OnPlayerDataNetworkListChanged;
+
     [SerializeField] private List<Color> playerColorList;
     [SerializeField] private List<Material> playerMaterialList;
     private NetworkList<PlayerData> playerDataNetworkList;
@@ -240,30 +242,46 @@ public class GameMultiplayer : NetworkBehaviour
         playerData.score = score;
         playerDataNetworkList[playerDataIndex] = playerData;
     }
-    public void AddPlayerScore(int score, ulong clientId)
+    public void AddPlayerScore(ulong clientId)
     {
-        AddPlayerScoreServerRpc(score, clientId);
+        AddPlayerScoreServerRpc(clientId);
+        foreach(PlayerData playerData in playerDataNetworkList)
+        {
+            if(playerData.score == 10)
+            {
+                GameOver();
+                return;
+            }
+        }
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void AddPlayerScoreServerRpc(int score, ulong clientId,ServerRpcParams serverRpcParams = default)
+    private void AddPlayerScoreServerRpc(ulong clientId,ServerRpcParams serverRpcParams = default)
     {
         int playerDataIndex = GetPlayerDataIndexFromClientId(clientId);
         PlayerData playerData = playerDataNetworkList[playerDataIndex];
-        playerData.score += score;
+        playerData.score += 1;
         playerDataNetworkList[playerDataIndex] = playerData;
+    }
 
-        //Debug.Log("GameMultiplayer: " + clientId);
-
-        //int playerDataIndex = GetPlayerDataIndexFromClientId(serverRpcParams.Receive.SenderClientId);
-        //PlayerData playerData = playerDataNetworkList[playerDataIndex];
-        //playerData.score += score;
-        //playerDataNetworkList[playerDataIndex] = playerData;
+    public string GetLeaderboard()
+    {
+        string leaderboard = "";
+        foreach (PlayerData playerData in playerDataNetworkList)
+        {
+            leaderboard += "<color=#" + ColorUtility.ToHtmlStringRGBA(GetPlayerColor(playerData.colorId)) + "> " + playerData.score + " | " + playerData.playerName.ToString() + "</color>\n";
+        }
+        return leaderboard;
     }
 
     public void KickPlayer(ulong clientId)
     {
         NetworkManager.Singleton.DisconnectClient(clientId);
         NetworkManager_Server_OnClientDisconnectCallback(clientId);
+    }
+
+    public void GameOver()
+    {
+
     }
 }

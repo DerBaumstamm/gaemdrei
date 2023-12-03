@@ -1,27 +1,24 @@
 using Unity.Netcode;
-using Unity.Netcode.Components;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
-using System;
-using UnityEngine.SocialPlatforms.Impl;
 using TMPro;
+using System;
 
 public class PistolShoot : NetworkBehaviour
 {
     [SerializeField] private InputAction shootAction;
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private Transform bulletSpawnPoint;
-    [SerializeField] private float fireRate = 0.5f;  
+    [SerializeField] private Transform bulletSpawnPoint;      
     [SerializeField] private List<GameObject> spawnedBullets = new();
     [SerializeField] private TMP_Text scoreUi;
-
+    [SerializeField] private float fireRate = 0.5f;
     private float nextFireTime = 0f;
 
     private void OnEnable()
     {
         shootAction.Enable();
+        
     }
 
     private void OnDisable()
@@ -29,11 +26,17 @@ public class PistolShoot : NetworkBehaviour
         shootAction.Disable();
     }
 
-    private void Awake()
+    //enables and updates leaderboard if player is owner
+    private void Start()
     {
-        scoreUi.enabled = false;
+        if (IsLocalPlayer)
+        {
+            scoreUi.enabled = true;
+            scoreUi.text = GameMultiplayer.Instance.GetLeaderboard();
+        }
     }
 
+    //checks if player shot
     void Update()
     {
         if(!IsOwner) return;
@@ -45,33 +48,40 @@ public class PistolShoot : NetworkBehaviour
         }
     }
 
+    //sends request to server to spawn bullet
     [ServerRpc]
     private void ShootServerRpc()
     {
         GameObject bulletPrefabTransform = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-        spawnedBullets.Add(bulletPrefabTransform);
-        bulletPrefabTransform.GetComponent<BulletBehavior>().parent = this;
-        bulletPrefabTransform.GetComponent<NetworkObject>().Spawn();
+        spawnedBullets.Add(bulletPrefabTransform);                          //adds bullet to list of currently existing bullets
+        bulletPrefabTransform.GetComponent<BulletBehavior>().parent = this; //ties bullet to this player
+        bulletPrefabTransform.GetComponent<NetworkObject>().Spawn();        //initiates network object of the bullet
     }
 
+    //sends request to server to despawn bullet
     [ServerRpc(RequireOwnership = false)]
     public void DestroyServerRpc()
     {
-        GameObject toDestroy = spawnedBullets[0];
-        toDestroy.GetComponent<NetworkObject>().Despawn();
+        GameObject toDestroy = spawnedBullets[0];            //takes oldest bullet from exisitng bullet list
+        toDestroy.GetComponent<NetworkObject>().Despawn();   //destroys network objct of bullet
         if(toDestroy != null)
         {
-            spawnedBullets.Remove(toDestroy);
+            spawnedBullets.Remove(toDestroy);                //removes bullet from list
+            Destroy(toDestroy);                              //destroys bullet object
         }
-        Destroy(toDestroy);
+                                        
     }
 
+    //updates score in Playerdata of the player who shot the bullet
     public void updatePlayerScore()
     {
-        if (!IsOwner) return;
-        scoreUi.enabled = true;
-        GameMultiplayer.Instance.AddPlayerScore(1,OwnerClientId);
+        GameMultiplayer.Instance.AddPlayerScore(OwnerClientId);
+        GameManager.Instance.updateLeaderboard();                   
+    }
+
+    public int getClientId()
+    {
         PlayerData playerData = GameMultiplayer.Instance.GetPlayerDataFromClientId(OwnerClientId);
-        scoreUi.text = playerData.score.ToString();
+        return Convert.ToInt32(playerData.clientId);
     }
 }

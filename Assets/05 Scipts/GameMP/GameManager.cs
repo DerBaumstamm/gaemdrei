@@ -1,13 +1,17 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : NetworkBehaviour
 {
     public static GameManager Instance { get; private set; }
+
+    [SerializeField] private TMP_Text scoreUi;
+    [SerializeField] private Transform playerPrefab;
 
     //public event EventHandler OnStateChanged;
     //public event EventHandler OnLocalGamePaused;
@@ -16,15 +20,15 @@ public class GameManager : NetworkBehaviour
     //public event EventHandler OnMultiplayerGameUnpaused;
     //public event EventHandler OnLocalPlayerReadyChanged;
 
-    private enum State
-    {
-        WaitingToStart,
-        CountdownToStart,
-        GamePlaying,
-        GameOver,
-    }
+    //private enum State
+    //{
+    //   WaitingToStart,
+    //    CountdownToStart,
+    //    GamePlaying,
+    //    GameOver,
+    //}
 
-    [SerializeField] private Transform playerPrefab;
+    
 
     //private NetworkVariable<State> state = new NetworkVariable<State>(State.WaitingToStart);
     //private bool isLocalPlayerReady;
@@ -40,7 +44,7 @@ public class GameManager : NetworkBehaviour
     private void Awake()
     {
         Instance = this;
-
+        scoreUi.text = GameMultiplayer.Instance.GetLeaderboard();
         //playerReadyDictionary = new Dictionary<ulong, bool>();
         //playerPausedDictionary = new Dictionary<ulong, bool>();
     }
@@ -64,6 +68,11 @@ public class GameManager : NetworkBehaviour
             playerTransform.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
         }
     }
+    public void updateLeaderboard()
+    {
+        scoreUi.text = GameMultiplayer.Instance.GetLeaderboard();
+    }
+
     private void NetworkManager_OnClientDisconnectCallback(ulong clientId)
     {
         //autoTestGamePausedState = true;

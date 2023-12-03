@@ -1,8 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using TMPro.EditorUtilities;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -10,11 +5,14 @@ public class PlayerManager : NetworkBehaviour
 {
     public static PlayerManager Instance { get; private set; }
     [SerializeField] private PlayerVisual playerVisual;
+
     private void Awake()
     {
         Instance = this;
         DontDestroyOnLoad(gameObject);       
     }
+
+    //when player spawns it sets score to 0 and applies previously selected skin
     public override void OnNetworkSpawn()
     {
         GameMultiplayer.Instance.SetPlayerScore(0);

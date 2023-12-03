@@ -1,34 +1,42 @@
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInput : NetworkBehaviour
 {
+    //movement input variables
     [SerializeField] private InputAction movementAction;
     [SerializeField] private InputAction lookAction;
     [SerializeField] private InputAction jumpAction;
     [SerializeField] private InputAction sprintAction;
 
+    //object variables
     [SerializeField] private Rigidbody rb;
     [SerializeField] private GameObject playerCamera;
     [SerializeField] private List<Vector3> spawnPositionList;
     [SerializeField] private Animator animator;
     private Camera cam;
 
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float sprintSpeed = 10f; 
-    [SerializeField] private float lookSpeed = 2f;
-    [SerializeField] private float jumpForce = 10f;
-    [SerializeField] private float groundCheckDistance = 0.2f; 
-    [SerializeField] private float groundHeight = 0.5f;
-    [SerializeField] private bool isSprinting = false;
+    //value variables
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float sprintSpeed; 
+    [SerializeField] private float lookSpeed;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float groundCheckDistance; 
+    [SerializeField] private float groundHeight;
+    private bool isSprinting = false;
+    private float rotationX;
 
-   
+    //vector variables;
+    Vector2 moveDirection;
+    Vector2 lookInput;
+    Vector3 cameraRotation;
+    Quaternion camRotation;
+    Vector3 cameraRotation2;
 
-    Vector2 moveDirection = Vector2.zero;
-    Vector2 lookInput = Vector2.zero;
-
+    //enables all movement inputs and camera
     private void OnEnable()
     {
         cam = playerCamera.GetComponent<Camera>();
@@ -39,6 +47,7 @@ public class PlayerInput : NetworkBehaviour
         Invoke(nameof(enableCamera), .1f);
     }
 
+    //disables all movement inputs
     private void OnDisable()
     {
         movementAction.Disable();
@@ -47,33 +56,43 @@ public class PlayerInput : NetworkBehaviour
         sprintAction.Disable();
     }
 
+    // locks cursor and spawns player with according position and rotation
     public override void OnNetworkSpawn()
     {
         Cursor.lockState = CursorLockMode.Locked;          
-        transform.position = spawnPositionList[GameMultiplayer.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)];    
+        transform.position = spawnPositionList[GameMultiplayer.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)];
+        camRotation = Quaternion.Euler(playerCamera.transform.eulerAngles);
     }
+
+    //applies all rotations + triggers jump
     private void Update()
     {
         if (!IsOwner) return;
-        
+
+        //assign movement inputs to variables
         lookInput = lookAction.ReadValue<Vector2>();
         moveDirection = movementAction.ReadValue<Vector2>();
 
+        //jump if player is on ground
         if (jumpAction.triggered && isGrounded())
         {
-            jump();
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+
+        //set isSprinting to true when sprint button is pressed
         isSprinting = sprintAction.ReadValue<float>() > 0.5f;
 
-
+        //apply mouse input to body rotation around the Y axis
         Vector3 bodyRotation = new Vector3(0, lookInput.x, 0) * lookSpeed;
         transform.rotation = transform.rotation * Quaternion.Euler(bodyRotation);
-        Vector3 cameraRotation = new Vector3(-lookInput.y, 0, 0) * lookSpeed;
-        cameraRotation.x = Mathf.Clamp(cameraRotation.x, -90, 90);
-        playerCamera.transform.rotation = playerCamera.transform.rotation * Quaternion.Euler(cameraRotation);
 
+        //apply mouse input to camera rotation around the X axis (and restrict to -80|65 degrees)
+        rotationX -= lookInput.y * lookSpeed;
+        rotationX = Mathf.Clamp(rotationX, -80, 65);
+        playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
     }
 
+    //applies wasd movement + sprint
     private void FixedUpdate()
     {
         if (!IsOwner) return;
@@ -88,7 +107,7 @@ public class PlayerInput : NetworkBehaviour
         right.Normalize();
 
         // Adjust speed based on sprinting state
-        float speed = isSprinting ? moveSpeed : sprintSpeed;
+        float speed = isSprinting ? sprintSpeed : moveSpeed;
 
 
         Vector3 desiredMoveDirection = forward * moveDirection.y + right * moveDirection.x;
@@ -96,17 +115,13 @@ public class PlayerInput : NetworkBehaviour
         animator.SetFloat("animSpeed",rb.velocity.magnitude);
     }
 
-    private void jump()
-    {
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-    }
-
+    //Use a raycast to check if the player is grounded
     private bool isGrounded()
-    {
-        // Use a raycast to check if the player is grounded
+    {       
         return Physics.Raycast(transform.position, Vector3.down, groundCheckDistance + groundHeight);
     }
 
+    //only enables camera for own playerObject
     private void enableCamera()
     {
         if (IsOwner)
