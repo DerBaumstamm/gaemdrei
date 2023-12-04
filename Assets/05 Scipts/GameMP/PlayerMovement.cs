@@ -3,6 +3,7 @@ using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerInput : NetworkBehaviour
 {
@@ -16,6 +17,7 @@ public class PlayerInput : NetworkBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private GameObject playerCamera;
     [SerializeField] private List<Vector3> spawnPositionList;
+    [SerializeField] private List<Vector3> gameOverPositionList;
     [SerializeField] private Animator animator;
     private Camera cam;
 
@@ -29,7 +31,7 @@ public class PlayerInput : NetworkBehaviour
     private bool isSprinting = false;
     private float rotationX;
 
-    //vector variables;
+    //vector variables
     Vector2 moveDirection;
     Vector2 lookInput;
     Vector3 cameraRotation;
@@ -59,9 +61,19 @@ public class PlayerInput : NetworkBehaviour
     // locks cursor and spawns player with according position and rotation
     public override void OnNetworkSpawn()
     {
-        Cursor.lockState = CursorLockMode.Locked;          
-        transform.position = spawnPositionList[GameMultiplayer.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)];
+        Cursor.lockState = CursorLockMode.Locked;
+        if (SceneManager.GetActiveScene().name != Loader.Scene.GameOver.ToString())
+        {
+            transform.position = spawnPositionList[GameMultiplayer.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)];
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            transform.position = gameOverPositionList[GameMultiplayer.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)];
+        }
+        
         camRotation = Quaternion.Euler(playerCamera.transform.eulerAngles);
+        
     }
 
     //applies all rotations + triggers jump

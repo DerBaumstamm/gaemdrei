@@ -21,7 +21,10 @@ public class GameMultiplayer : NetworkBehaviour
     [SerializeField] private List<Color> playerColorList;
     [SerializeField] private List<Material> playerMaterialList;
     private NetworkList<PlayerData> playerDataNetworkList;
+
     private string playerName;
+    private string winnerName;
+    private ulong winnerId;
 
     private void Awake()
     {
@@ -247,21 +250,25 @@ public class GameMultiplayer : NetworkBehaviour
         AddPlayerScoreServerRpc(clientId);
         foreach(PlayerData playerData in playerDataNetworkList)
         {
-            if(playerData.score == 10)
+            if(playerData.score >= 10)
             {
-                GameOver();
+                winnerName = playerData.playerName.ToString();
+                winnerId = playerData.clientId;
+                Loader.LoadNetwork(Loader.Scene.GameOver);
                 return;
             }
         }
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void AddPlayerScoreServerRpc(ulong clientId,ServerRpcParams serverRpcParams = default)
+    private void AddPlayerScoreServerRpc(ulong clientId)
     {
+        Debug.Log(clientId + " | AddPlayerScoreRPC in GameMultiplayer");
         int playerDataIndex = GetPlayerDataIndexFromClientId(clientId);
         PlayerData playerData = playerDataNetworkList[playerDataIndex];
         playerData.score += 1;
         playerDataNetworkList[playerDataIndex] = playerData;
+        
     }
 
     public string GetLeaderboard()
@@ -274,7 +281,7 @@ public class GameMultiplayer : NetworkBehaviour
         return leaderboard;
     }
 
-    public void KickPlayer(ulong clientId)
+    public void kickPlayer(ulong clientId)
     {
         NetworkManager.Singleton.DisconnectClient(clientId);
         NetworkManager_Server_OnClientDisconnectCallback(clientId);
@@ -282,6 +289,15 @@ public class GameMultiplayer : NetworkBehaviour
 
     public void GameOver()
     {
+        Loader.LoadNetwork(Loader.Scene.GameOver);
+    }
 
+    public string GetWinnerName()
+    {
+        return winnerName;
+    }
+    public ulong GetWinnerId()
+    {
+        return winnerId;
     }
 }

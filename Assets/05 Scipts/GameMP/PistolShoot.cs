@@ -9,32 +9,23 @@ public class PistolShoot : NetworkBehaviour
 {
     [SerializeField] private InputAction shootAction;
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private Transform bulletSpawnPoint;      
-    [SerializeField] private List<GameObject> spawnedBullets = new();
+    [SerializeField] private Transform bulletSpawnPoint;
     [SerializeField] private TMP_Text scoreUi;
+    [SerializeField] private List<GameObject> spawnedBullets = new();
+
     [SerializeField] private float fireRate = 0.5f;
     private float nextFireTime = 0f;
 
     private void OnEnable()
     {
-        shootAction.Enable();
-        
+        shootAction.Enable();        
     }
-
+   
     private void OnDisable()
     {
         shootAction.Disable();
     }
 
-    //enables and updates leaderboard if player is owner
-    private void Start()
-    {
-        if (IsLocalPlayer)
-        {
-            scoreUi.enabled = true;
-            scoreUi.text = GameMultiplayer.Instance.GetLeaderboard();
-        }
-    }
 
     //checks if player shot
     void Update()
@@ -73,7 +64,8 @@ public class PistolShoot : NetworkBehaviour
     }
 
     //updates score in Playerdata of the player who shot the bullet
-    public void updatePlayerScore()
+    [ServerRpc(RequireOwnership = false)]
+    public void updatePlayerScoreServerRpc()
     {
         GameMultiplayer.Instance.AddPlayerScore(OwnerClientId);
         GameManager.Instance.updateLeaderboard();                   

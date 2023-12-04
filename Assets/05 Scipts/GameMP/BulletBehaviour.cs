@@ -7,7 +7,6 @@ public class BulletBehavior : NetworkBehaviour
     public PistolShoot parent; //script which belongs to a player with playerID to send scoreUpdate to
     [SerializeField] private float shootForce = 20f;
     [SerializeField] private Transform bulletSpawnPoint;
-    [SerializeField] private GameObject hitParticles;
     private Rigidbody rb;
 
     //applies Force upon start
@@ -23,18 +22,8 @@ public class BulletBehavior : NetworkBehaviour
         if (!IsOwner) return;
         if(collider.tag == "Player")
         {           
-            parent.updatePlayerScore();                     
+            parent.updatePlayerScoreServerRpc();                     
         }
         parent.DestroyServerRpc();
     }
-
-    //sends server request to spawn hitParticle object
-    [ServerRpc]
-    private void instantiateParticleServerRpc()
-    {
-        GameObject hitImpact = Instantiate(hitParticles, transform.position, Quaternion.identity);
-        hitImpact.GetComponent<NetworkObject>().Spawn();
-        hitImpact.transform.localEulerAngles = new Vector3 (0f, 0f, -90f);
-    }
-
 }

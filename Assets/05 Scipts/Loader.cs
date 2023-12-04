@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,10 +13,10 @@ public static class Loader
         MainMenu,
         LobbyMenu,
         CharacterSelect,
-        CharacterSelection,
         GameMP,
+        GameOver,
     }
-
+   
     private static Scene targetScene;
 
     public static void Load(Scene targetScene)

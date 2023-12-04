@@ -20,7 +20,7 @@ public class CharacterSelectPlayer : MonoBehaviour
         {
             PlayerData playerData = GameMultiplayer.Instance.GetPlayerDataFromPlayerIndex(playerIndex);
             LobbyMenu.Instance.KickPlayer(playerData.playerId.ToString());
-            GameMultiplayer.Instance.KickPlayer(playerData.clientId);
+            GameMultiplayer.Instance.kickPlayer(playerData.clientId);
         });
 
     }

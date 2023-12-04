@@ -7,14 +7,16 @@ using UnityEngine;
 public class CharacterSelectReady : NetworkBehaviour
 {
     public static CharacterSelectReady Instance { get; private set; }
-    private Dictionary<ulong, bool> playerReadyDictionary;
     public event EventHandler OnReadyChanged;
+    private Dictionary<ulong, bool> playerReadyDictionary;
 
     private void Awake()
     {
         Instance = this;
+
         playerReadyDictionary = new Dictionary<ulong, bool>();
     }
+
     public void setPlayerReady()
     {
         SetPlayerReadyServerRpc();
@@ -26,18 +28,19 @@ public class CharacterSelectReady : NetworkBehaviour
         SetPlayerReadyClientRpc(serverRpcParams.Receive.SenderClientId);
         playerReadyDictionary[serverRpcParams.Receive.SenderClientId] = true;
         bool allClientsReady = true;
-        foreach (ulong clientID in NetworkManager.Singleton.ConnectedClientsIds)
+        foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
         {
-            if (!playerReadyDictionary.ContainsKey(clientID) || !playerReadyDictionary[clientID])
+            if (!playerReadyDictionary.ContainsKey(clientId) || !playerReadyDictionary[clientId])
             {
+                // This player is NOT ready
                 allClientsReady = false;
                 break;
             }
-            if (allClientsReady)
-            {
-                LobbyMenu.Instance.DeleteLobby();
-                Loader.LoadNetwork(Loader.Scene.GameMP);
-            }
+        }
+        if (allClientsReady)
+        {
+            LobbyMenu.Instance.DeleteLobby();
+            Loader.LoadNetwork(Loader.Scene.GameMP);
         }
     }
 
@@ -47,6 +50,8 @@ public class CharacterSelectReady : NetworkBehaviour
         playerReadyDictionary[clientId] = true;
         OnReadyChanged?.Invoke(this, EventArgs.Empty);
     }
+
+
     public bool IsPlayerReady(ulong clientId)
     {
         return playerReadyDictionary.ContainsKey(clientId) && playerReadyDictionary[clientId];

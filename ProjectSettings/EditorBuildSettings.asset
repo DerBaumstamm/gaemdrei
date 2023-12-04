@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01 Scenes/GameMP.unity
     guid: f8b8158680c36ee409e6557f32cbb6cf
+  - enabled: 1
+    path: Assets/01 Scenes/GameOver.unity
+    guid: 45499e453c8587c4d8fbfa81ba977d79
   - enabled: 0
     path: Assets/01 Scenes/GameSP.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
