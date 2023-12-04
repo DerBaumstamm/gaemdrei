@@ -81,6 +81,14 @@ public class PlayerInput : NetworkBehaviour
     {
         if (!IsOwner) return;
 
+        
+    }
+
+    //applies wasd movement + sprint
+    private void FixedUpdate()
+    {
+        if (!IsOwner) return;
+
         //assign movement inputs to variables
         lookInput = lookAction.ReadValue<Vector2>();
         moveDirection = movementAction.ReadValue<Vector2>();
@@ -102,12 +110,6 @@ public class PlayerInput : NetworkBehaviour
         rotationX -= lookInput.y * lookSpeed;
         rotationX = Mathf.Clamp(rotationX, -80, 65);
         playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-    }
-
-    //applies wasd movement + sprint
-    private void FixedUpdate()
-    {
-        if (!IsOwner) return;
 
         Vector3 forward = playerCamera.transform.forward;
         Vector3 right = playerCamera.transform.right;
