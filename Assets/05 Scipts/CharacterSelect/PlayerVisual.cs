@@ -19,11 +19,11 @@ public class PlayerVisual : MonoBehaviour
         topBottomMeshRenderer.material = topBottomMaterial;
     }
 
-    public void SetPlayerColor(Color color)
+    public void setPlayerColor(Color color)
     {
         topBottomMaterial.color = color;
     }
-    public void SetPlayerMaterial(Material mat)
+    public void setPlayerMaterial(Material mat)
     {
         bodyMaterial.mainTexture = mat.mainTexture;
     }

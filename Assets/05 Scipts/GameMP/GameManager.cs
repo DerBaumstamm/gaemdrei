@@ -17,18 +17,18 @@ public class GameManager : NetworkBehaviour
 
     private void Awake()    {
         Instance = this;
-        scoreUi.text = GameMultiplayer.Instance.GetLeaderboard();
+        scoreUi.text = GameMultiplayer.Instance.getLeaderboard();
     }
 
     public override void OnNetworkSpawn()
     {
         if (IsServer)
         {
-            NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += SceneManager_OnLoadEventCompleted;
+            NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += sceneManager_OnLoadEventCompleted;
         }
     }
 
-    private void SceneManager_OnLoadEventCompleted(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
+    private void sceneManager_OnLoadEventCompleted(string sceneName, LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut)
     {
         foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds)
         {            
@@ -42,6 +42,6 @@ public class GameManager : NetworkBehaviour
 
     public void updateLeaderboard()
     {
-        scoreUi.text = GameMultiplayer.Instance.GetLeaderboard();
+        scoreUi.text = GameMultiplayer.Instance.getLeaderboard();
     }
 }

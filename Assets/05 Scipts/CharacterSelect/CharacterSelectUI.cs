@@ -17,7 +17,7 @@ public class CharacterSelectUI : NetworkBehaviour
     {
         mainMenuButton.onClick.AddListener(() =>
         {
-            LobbyMenu.Instance.LeaveLobby();
+            LobbyMenu.Instance.leaveLobby();
             NetworkManager.Singleton.Shutdown();
             Loader.Load(Loader.Scene.MainMenu);
         });
@@ -29,7 +29,7 @@ public class CharacterSelectUI : NetworkBehaviour
 
     private void Start()
     {
-        Lobby lobby = LobbyMenu.Instance.GetLobby();
+        Lobby lobby = LobbyMenu.Instance.getLobby();
         lobbyNameText.text = "Lobby Name: " + lobby.Name;
         lobbyCodeText.text = "Lobby Code: " + lobby.LobbyCode;
     }

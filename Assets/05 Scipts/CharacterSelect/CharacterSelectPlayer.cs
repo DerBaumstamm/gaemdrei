@@ -18,57 +18,57 @@ public class CharacterSelectPlayer : MonoBehaviour
     {
         kickButton.onClick.AddListener(() =>
         {
-            PlayerData playerData = GameMultiplayer.Instance.GetPlayerDataFromPlayerIndex(playerIndex);
-            LobbyMenu.Instance.KickPlayer(playerData.playerId.ToString());
+            PlayerData playerData = GameMultiplayer.Instance.getPlayerDataFromPlayerIndex(playerIndex);
+            LobbyMenu.Instance.kickPlayer(playerData.playerId.ToString());
             GameMultiplayer.Instance.kickPlayer(playerData.clientId);
         });
 
     }
     private void Start()
     {
-        GameMultiplayer.Instance.OnPlayerDataNetworkListChanged += GameMultiplayer_PlayerDataNetworkList_OnListChanged;
-        CharacterSelectReady.Instance.OnReadyChanged += CharacterSelectReady_OnReadyChanged;
+        GameMultiplayer.Instance.OnPlayerDataNetworkListChanged += gameMultiplayer_PlayerDataNetworkList_OnListChanged;
+        CharacterSelectReady.Instance.OnReadyChanged += characterSelectReady_OnReadyChanged;
         kickButton.gameObject.SetActive(NetworkManager.Singleton.IsServer);
-        UpdatePlayer();
+        updatePlayer();
     }
 
-    private void CharacterSelectReady_OnReadyChanged(object sender, System.EventArgs e)
+    private void characterSelectReady_OnReadyChanged(object sender, System.EventArgs e)
     {
-        UpdatePlayer();
+        updatePlayer();
     }
 
-    private void GameMultiplayer_PlayerDataNetworkList_OnListChanged(object sender, System.EventArgs e)
+    private void gameMultiplayer_PlayerDataNetworkList_OnListChanged(object sender, System.EventArgs e)
     {
-        UpdatePlayer();
+        updatePlayer();
     }
 
-    private void UpdatePlayer()
+    private void updatePlayer()
     {
-        if(GameMultiplayer.Instance.IsPlayerIndexConnected(playerIndex))
+        if(GameMultiplayer.Instance.isPlayerIndexConnected(playerIndex))
         {
-            Show();
-            PlayerData playerData = GameMultiplayer.Instance.GetPlayerDataFromPlayerIndex(playerIndex);
-            readyGameObject.SetActive(CharacterSelectReady.Instance.IsPlayerReady(playerData.clientId));
+            show();
+            PlayerData playerData = GameMultiplayer.Instance.getPlayerDataFromPlayerIndex(playerIndex);
+            readyGameObject.SetActive(CharacterSelectReady.Instance.isPlayerReady(playerData.clientId));
             playerNameText.text = playerData.playerName.ToString();
-            playerVisual.SetPlayerColor(GameMultiplayer.Instance.GetPlayerColor(playerData.colorId));
-            playerVisual.SetPlayerMaterial(GameMultiplayer.Instance.GetPlayerMaterial(playerData.colorId));
+            playerVisual.setPlayerColor(GameMultiplayer.Instance.getPlayerColor(playerData.colorId));
+            playerVisual.setPlayerMaterial(GameMultiplayer.Instance.getPlayerMaterial(playerData.colorId));
         }
         else
         {
-            Hide();
+            hide();
         }
     }
-    private void Show()
+    private void show()
     {
         gameObject.SetActive(true);
     }
 
-    private void Hide()
+    private void hide()
     {
         gameObject.SetActive(false);
     }
     private void OnDestroy()
     {
-        GameMultiplayer.Instance.OnPlayerDataNetworkListChanged -= GameMultiplayer_PlayerDataNetworkList_OnListChanged;
+        GameMultiplayer.Instance.OnPlayerDataNetworkListChanged -= gameMultiplayer_PlayerDataNetworkList_OnListChanged;
     }
 }

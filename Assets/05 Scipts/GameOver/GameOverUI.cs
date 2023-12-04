@@ -13,7 +13,7 @@ public class GameOverUI : NetworkBehaviour
 
     void Start()
     {
-        text.text = GameMultiplayer.Instance.GetWinnerName() + " won the Game!";
+        text.text = GameMultiplayer.Instance.getWinnerName() + " won the Game!";
         Cursor.lockState = CursorLockMode.None;
     }
 
@@ -21,7 +21,7 @@ public class GameOverUI : NetworkBehaviour
     {
         mainMenuButton.onClick.AddListener(() =>
         {            
-            LobbyMenu.Instance.LeaveLobby();            
+            LobbyMenu.Instance.leaveLobby();            
             Loader.Load(Loader.Scene.MainMenu);
         });
     }

@@ -23,7 +23,7 @@ public class PlayerUI : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        PlayerData playerData = GameMultiplayer.Instance.GetPlayerDataFromClientId(OwnerClientId);
+        PlayerData playerData = GameMultiplayer.Instance.getPlayerDataFromClientId(OwnerClientId);
         playerName.text = playerData.playerName.ToString();
     }
 }

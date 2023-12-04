@@ -15,75 +15,75 @@ public class LobbyMessageUI : MonoBehaviour
 
     private void Awake()
     {
-        closeButton.onClick.AddListener(Hide);
+        closeButton.onClick.AddListener(hide);
     }
 
     private void Start()
     {
-        GameMultiplayer.Instance.OnFailedToJoinGame += GameMultiplayer_OnFailedToJoinGame;
-        LobbyMenu.Instance.OnCreateLobbyStarted += GameLobby_OnCreateLobbyStarted;
-        LobbyMenu.Instance.OnCreateLobbyFailed += GameLobby_OnCreateLobbyFailed;
-        LobbyMenu.Instance.OnJoinStarted += GameLobby_OnJoinStarted;
-        LobbyMenu.Instance.OnJoinFailed += GameLobby_OnJoinFailed;
-        LobbyMenu.Instance.OnQuickJoinFailed += GameLobby_OnQuickJoinFailed;
+        GameMultiplayer.Instance.OnFailedToJoinGame += gameMultiplayer_OnFailedToJoinGame;
+        LobbyMenu.Instance.OnCreateLobbyStarted += gameLobby_OnCreateLobbyStarted;
+        LobbyMenu.Instance.OnCreateLobbyFailed += gameLobby_OnCreateLobbyFailed;
+        LobbyMenu.Instance.OnJoinStarted += gameLobby_OnJoinStarted;
+        LobbyMenu.Instance.OnJoinFailed += gameLobby_OnJoinFailed;
+        LobbyMenu.Instance.OnQuickJoinFailed += gameLobby_OnQuickJoinFailed;
         closeButton.gameObject.SetActive(false);
-        Hide();
+        hide();
     }
 
-    private void GameLobby_OnQuickJoinFailed(object sender, System.EventArgs e)
+    private void gameLobby_OnQuickJoinFailed(object sender, System.EventArgs e)
     {
-        ShowMessage("Could not find a Lobby to Quick Join!");
+        showMessage("Could not find a Lobby to Quick Join!");
         closeButton.gameObject.SetActive(true);
     }
 
-    private void GameLobby_OnJoinFailed(object sender, System.EventArgs e)
+    private void gameLobby_OnJoinFailed(object sender, System.EventArgs e)
     {
-        ShowMessage("Failed to join Lobby!");
+        showMessage("Failed to join Lobby!");
         closeButton.gameObject.SetActive(true);
     }
 
-    private void GameLobby_OnJoinStarted(object sender, System.EventArgs e)
+    private void gameLobby_OnJoinStarted(object sender, System.EventArgs e)
     {
-        ShowMessage("Joining Lobby...");
+        showMessage("Joining Lobby...");
     }
 
-    private void GameLobby_OnCreateLobbyFailed(object sender, System.EventArgs e)
+    private void gameLobby_OnCreateLobbyFailed(object sender, System.EventArgs e)
     {
-        ShowMessage("Failed to create Lobby!");
+        showMessage("Failed to create Lobby!");
         closeButton.gameObject.SetActive(true);
     }
 
-    private void GameLobby_OnCreateLobbyStarted(object sender, System.EventArgs e)
+    private void gameLobby_OnCreateLobbyStarted(object sender, System.EventArgs e)
     {
-        ShowMessage("Creating Lobby...");
+        showMessage("Creating Lobby...");
     }
 
-    private void GameMultiplayer_OnFailedToJoinGame(object sender, System.EventArgs e)
+    private void gameMultiplayer_OnFailedToJoinGame(object sender, System.EventArgs e)
     {
         if (NetworkManager.Singleton.DisconnectReason == "")
         {
-            ShowMessage("Failed to connect");
+            showMessage("Failed to connect");
             closeButton.gameObject.SetActive(true);
         }
         else
         {
-            ShowMessage(NetworkManager.Singleton.DisconnectReason);
+            showMessage(NetworkManager.Singleton.DisconnectReason);
             closeButton.gameObject.SetActive(true);
         }
     }
 
-    private void ShowMessage(string message)
+    private void showMessage(string message)
     {
-        Show();
+        show();
         messageText.text = message;
     }
 
-    private void Show()
+    private void show()
     {
         gameObject.SetActive(true);
     }
 
-    private void Hide()
+    private void hide()
     {
         gameObject.SetActive(false);
         closeButton.gameObject.SetActive(false);
@@ -91,12 +91,12 @@ public class LobbyMessageUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameMultiplayer.Instance.OnFailedToJoinGame -= GameMultiplayer_OnFailedToJoinGame;
-        LobbyMenu.Instance.OnCreateLobbyStarted -= GameLobby_OnCreateLobbyStarted;
-        LobbyMenu.Instance.OnCreateLobbyFailed -= GameLobby_OnCreateLobbyFailed;
-        LobbyMenu.Instance.OnJoinStarted -= GameLobby_OnJoinStarted;
-        LobbyMenu.Instance.OnJoinFailed -= GameLobby_OnJoinFailed;
-        LobbyMenu.Instance.OnQuickJoinFailed -= GameLobby_OnQuickJoinFailed;
+        GameMultiplayer.Instance.OnFailedToJoinGame -= gameMultiplayer_OnFailedToJoinGame;
+        LobbyMenu.Instance.OnCreateLobbyStarted -= gameLobby_OnCreateLobbyStarted;
+        LobbyMenu.Instance.OnCreateLobbyFailed -= gameLobby_OnCreateLobbyFailed;
+        LobbyMenu.Instance.OnJoinStarted -= gameLobby_OnJoinStarted;
+        LobbyMenu.Instance.OnJoinFailed -= gameLobby_OnJoinFailed;
+        LobbyMenu.Instance.OnQuickJoinFailed -= gameLobby_OnQuickJoinFailed;
     }
 
 }

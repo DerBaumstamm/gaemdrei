@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.Netcode;
 using UnityEngine;
 
 public class GameOverPlayer : MonoBehaviour
@@ -13,43 +10,43 @@ public class GameOverPlayer : MonoBehaviour
 
     private void Start()
     {
-        GameMultiplayer.Instance.OnPlayerDataNetworkListChanged += GameMultiplayer_PlayerDataNetworkList_OnListChanged;       
-        UpdatePlayer();
+        GameMultiplayer.Instance.OnPlayerDataNetworkListChanged += gameMultiplayer_PlayerDataNetworkList_OnListChanged;       
+        updatePlayer();
     }
 
 
-    private void GameMultiplayer_PlayerDataNetworkList_OnListChanged(object sender, System.EventArgs e)
+    private void gameMultiplayer_PlayerDataNetworkList_OnListChanged(object sender, System.EventArgs e)
     {
-        UpdatePlayer();
+        updatePlayer();
     }
 
-    private void UpdatePlayer()
+    private void updatePlayer()
     {
-        if (GameMultiplayer.Instance.IsPlayerIndexConnected(playerIndex))
+        if (GameMultiplayer.Instance.isPlayerIndexConnected(playerIndex))
         {
-            Show();
-            PlayerData playerData = GameMultiplayer.Instance.GetPlayerDataFromPlayerIndex(playerIndex);
-            winnerGameObject.SetActive(playerData.clientId == GameMultiplayer.Instance.GetWinnerId());
+            show();
+            PlayerData playerData = GameMultiplayer.Instance.getPlayerDataFromPlayerIndex(playerIndex);
+            winnerGameObject.SetActive(playerData.clientId == GameMultiplayer.Instance.getWinnerId());
             playerNameText.text = playerData.playerName.ToString();
-            playerVisual.SetPlayerColor(GameMultiplayer.Instance.GetPlayerColor(playerData.colorId));
-            playerVisual.SetPlayerMaterial(GameMultiplayer.Instance.GetPlayerMaterial(playerData.colorId));
+            playerVisual.setPlayerColor(GameMultiplayer.Instance.getPlayerColor(playerData.colorId));
+            playerVisual.setPlayerMaterial(GameMultiplayer.Instance.getPlayerMaterial(playerData.colorId));
         }
         else
         {
-            Hide();
+            hide();
         }
     }
-    private void Show()
+    private void show()
     {
         gameObject.SetActive(true);
     }
 
-    private void Hide()
+    private void hide()
     {
         gameObject.SetActive(false);
     }
     private void OnDestroy()
     {
-        GameMultiplayer.Instance.OnPlayerDataNetworkListChanged -= GameMultiplayer_PlayerDataNetworkList_OnListChanged;
+        GameMultiplayer.Instance.OnPlayerDataNetworkListChanged -= gameMultiplayer_PlayerDataNetworkList_OnListChanged;
     }
 }

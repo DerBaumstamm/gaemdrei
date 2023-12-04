@@ -24,6 +24,6 @@ public class BulletBehavior : NetworkBehaviour
         {           
             parent.updatePlayerScoreServerRpc();                     
         }
-        parent.DestroyServerRpc();
+        parent.destroyServerRpc();
     }
 }

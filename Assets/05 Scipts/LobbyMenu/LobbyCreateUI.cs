@@ -15,29 +15,29 @@ public class LobbyCreateUI : MonoBehaviour
     {
         createPublicButton.onClick.AddListener(() =>
         {
-            LobbyMenu.Instance.CreateLobby(lobbyNameInputField.text, false);
+            LobbyMenu.Instance.createLobby(lobbyNameInputField.text, false);
         });
         createPrivateButton.onClick.AddListener(() =>
         {
-            LobbyMenu.Instance.CreateLobby(lobbyNameInputField.text, true);
+            LobbyMenu.Instance.createLobby(lobbyNameInputField.text, true);
         });
         closeButton.onClick.AddListener(() =>
         {
-            Hide();
+            hide();
         });
    
     }
 
     private void Start()
     {
-        Hide();
+        hide();
     }
-    public void Show()
+    public void show()
     {
         gameObject.SetActive(true);
     }
 
-    private void Hide()
+    private void hide()
     {
         gameObject.SetActive(false);
     }

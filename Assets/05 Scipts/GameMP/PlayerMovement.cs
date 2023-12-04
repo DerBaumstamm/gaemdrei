@@ -64,12 +64,12 @@ public class PlayerInput : NetworkBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         if (SceneManager.GetActiveScene().name != Loader.Scene.GameOver.ToString())
         {
-            transform.position = spawnPositionList[GameMultiplayer.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)];
+            transform.position = spawnPositionList[GameMultiplayer.Instance.getPlayerDataIndexFromClientId(OwnerClientId)];
         }
         else
         {
             Cursor.lockState = CursorLockMode.None;
-            transform.position = gameOverPositionList[GameMultiplayer.Instance.GetPlayerDataIndexFromClientId(OwnerClientId)];
+            transform.position = gameOverPositionList[GameMultiplayer.Instance.getPlayerDataIndexFromClientId(OwnerClientId)];
         }
         
         camRotation = Quaternion.Euler(playerCamera.transform.eulerAngles);

@@ -25,12 +25,12 @@ public static class Loader
         SceneManager.LoadScene(targetScene.ToString(), LoadSceneMode.Single);
     }
 
-    public static void LoadNetwork(Scene targetScene)
+    public static void loadNetwork(Scene targetScene)
     {
         NetworkManager.Singleton.SceneManager.LoadScene(targetScene.ToString(), LoadSceneMode.Single);
     }
 
-    public static void LoaderCallback()
+    public static void loaderCallback()
     {
         SceneManager.LoadScene(targetScene.ToString());
     }

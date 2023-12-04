@@ -18,9 +18,9 @@ public class PlayerManager : NetworkBehaviour
     //when player spawns it sets score to 0 and applies previously selected skin
     public override void OnNetworkSpawn()
     {
-        GameMultiplayer.Instance.SetPlayerScore(0);
-        PlayerData playerData = GameMultiplayer.Instance.GetPlayerDataFromClientId(OwnerClientId);
-        playerVisual.SetPlayerColor(GameMultiplayer.Instance.GetPlayerColor(playerData.colorId));
-        playerVisual.SetPlayerMaterial(GameMultiplayer.Instance.GetPlayerMaterial(playerData.colorId));
+        GameMultiplayer.Instance.setPlayerScore(0);
+        PlayerData playerData = GameMultiplayer.Instance.getPlayerDataFromClientId(OwnerClientId);
+        playerVisual.setPlayerColor(GameMultiplayer.Instance.getPlayerColor(playerData.colorId));
+        playerVisual.setPlayerMaterial(GameMultiplayer.Instance.getPlayerMaterial(playerData.colorId));
     }
 }

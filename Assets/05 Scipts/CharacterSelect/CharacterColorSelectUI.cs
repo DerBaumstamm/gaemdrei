@@ -11,25 +11,25 @@ public class CharacterColorSelectUI : MonoBehaviour
     {
         GetComponent<Button>().onClick.AddListener(() =>
         {
-            GameMultiplayer.Instance.ChangePlayerColor(colorId);
+            GameMultiplayer.Instance.changePlayerColor(colorId);
         });
     }
 
     private void Start()
     {
-        GameMultiplayer.Instance.OnPlayerDataNetworkListChanged += GameMultiplayer_OnPlayerDataNetworkListChanged;
-        image.color = GameMultiplayer.Instance.GetPlayerColor(colorId);
-        UpdateIsSelected();
+        GameMultiplayer.Instance.OnPlayerDataNetworkListChanged += gameMultiplayer_OnPlayerDataNetworkListChanged;
+        image.color = GameMultiplayer.Instance.getPlayerColor(colorId);
+        updateIsSelected();
     }
 
-    private void GameMultiplayer_OnPlayerDataNetworkListChanged(object sender, System.EventArgs e)
+    private void gameMultiplayer_OnPlayerDataNetworkListChanged(object sender, System.EventArgs e)
     {
-        UpdateIsSelected();
+        updateIsSelected();
     }
 
-    private void UpdateIsSelected()
+    private void updateIsSelected()
     {
-        if(GameMultiplayer.Instance.GetPlayerData().colorId == colorId)
+        if(GameMultiplayer.Instance.getPlayerData().colorId == colorId)
         {
             selectedGameObject.SetActive(true);
         }
@@ -40,6 +40,6 @@ public class CharacterColorSelectUI : MonoBehaviour
     }
     private void OnDestroy()
     {
-        GameMultiplayer.Instance.OnPlayerDataNetworkListChanged -= GameMultiplayer_OnPlayerDataNetworkListChanged;
+        GameMultiplayer.Instance.OnPlayerDataNetworkListChanged -= gameMultiplayer_OnPlayerDataNetworkListChanged;
     }
 }

@@ -14,11 +14,11 @@ public class LobbyListSingleUI : MonoBehaviour
     {
         GetComponent<Button>().onClick.AddListener(() =>
         {
-            LobbyMenu.Instance.JoinWithId(lobby.Id.ToString());
+            LobbyMenu.Instance.joinWithId(lobby.Id.ToString());
         });
     }
 
-    public void SetLobby(Lobby lobby)
+    public void setLobby(Lobby lobby)
     {
         this.lobby = lobby;
         lobbyNameText.text = lobby.Name;

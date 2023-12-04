@@ -23,40 +23,40 @@ public class LobbyUI : MonoBehaviour
     {
         mainMenuButton.onClick.AddListener(() =>
         {
-            LobbyMenu.Instance.LeaveLobby();
+            LobbyMenu.Instance.leaveLobby();
             Loader.Load(Loader.Scene.MainMenu);
         });
         createLobbyButton.onClick.AddListener(() =>
         {
-            lobbyCreateUI.Show();
+            lobbyCreateUI.show();
         });
         quickJoinButton.onClick.AddListener(() =>
         {
-            LobbyMenu.Instance.QuickJoin();
+            LobbyMenu.Instance.quickJoin();
         });
         codeJoinButton.onClick.AddListener(() =>
         {
-            LobbyMenu.Instance.JoinWithCode(codeInputField.text);
+            LobbyMenu.Instance.joinWithCode(codeInputField.text);
         });
         lobbyTemplate.gameObject.SetActive(false);
     }
     private void Start()
     {
-        playerNameInputField.text = GameMultiplayer.Instance.GetPlayerName();
+        playerNameInputField.text = GameMultiplayer.Instance.getPlayerName();
         playerNameInputField.onValueChanged.AddListener((string newText) =>
         {
-            GameMultiplayer.Instance.SetPlayerName(newText);
+            GameMultiplayer.Instance.setPlayerName(newText);
         });
-        LobbyMenu.Instance.OnLobbyListChanged += LobbyMenu_OnLobbyListChanged;
-        UpdateLobbyList(new List<Lobby>());
+        LobbyMenu.Instance.OnLobbyListChanged += lobbyMenu_OnLobbyListChanged;
+        updateLobbyList(new List<Lobby>());
     }
 
-    private void LobbyMenu_OnLobbyListChanged(object sender, LobbyMenu.OnLobbyListChangedEventArgs e)
+    private void lobbyMenu_OnLobbyListChanged(object sender, LobbyMenu.OnLobbyListChangedEventArgs e)
     {
-        UpdateLobbyList(e.lobbyList);
+        updateLobbyList(e.lobbyList);
     }
 
-    private void UpdateLobbyList(List<Lobby> lobbyList)
+    private void updateLobbyList(List<Lobby> lobbyList)
     {
         foreach(Transform child in lobbyContainer)
         {
@@ -67,7 +67,7 @@ public class LobbyUI : MonoBehaviour
         {
             Transform lobbyTransform = Instantiate(lobbyTemplate, lobbyContainer);
             lobbyTransform.gameObject.SetActive(true);
-            lobbyTransform.GetComponent<LobbyListSingleUI>().SetLobby(lobby);
+            lobbyTransform.GetComponent<LobbyListSingleUI>().setLobby(lobby);
         }
     }
 }

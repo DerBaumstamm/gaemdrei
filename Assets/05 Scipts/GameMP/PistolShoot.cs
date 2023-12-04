@@ -34,14 +34,14 @@ public class PistolShoot : NetworkBehaviour
 
         if (shootAction.triggered && Time.time >= nextFireTime)
         {
-            ShootServerRpc();
+            shootServerRpc();
             nextFireTime = Time.time + 1f / fireRate;
         }
     }
 
     //sends request to server to spawn bullet
     [ServerRpc]
-    private void ShootServerRpc()
+    private void shootServerRpc()
     {
         GameObject bulletPrefabTransform = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         spawnedBullets.Add(bulletPrefabTransform);                          //adds bullet to list of currently existing bullets
@@ -51,7 +51,7 @@ public class PistolShoot : NetworkBehaviour
 
     //sends request to server to despawn bullet
     [ServerRpc(RequireOwnership = false)]
-    public void DestroyServerRpc()
+    public void destroyServerRpc()
     {
         GameObject toDestroy = spawnedBullets[0];            //takes oldest bullet from exisitng bullet list
         toDestroy.GetComponent<NetworkObject>().Despawn();   //destroys network objct of bullet
@@ -67,13 +67,13 @@ public class PistolShoot : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void updatePlayerScoreServerRpc()
     {
-        GameMultiplayer.Instance.AddPlayerScore(OwnerClientId);
+        GameMultiplayer.Instance.addPlayerScore(OwnerClientId);
         GameManager.Instance.updateLeaderboard();                   
     }
 
     public int getClientId()
     {
-        PlayerData playerData = GameMultiplayer.Instance.GetPlayerDataFromClientId(OwnerClientId);
+        PlayerData playerData = GameMultiplayer.Instance.getPlayerDataFromClientId(OwnerClientId);
         return Convert.ToInt32(playerData.clientId);
     }
 }
