@@ -317,7 +317,7 @@ MonoBehaviour:
   SyncPositionZ: 1
   SyncRotAngleX: 1
   SyncRotAngleY: 1
-  SyncRotAngleZ: 0
+  SyncRotAngleZ: 1
   SyncScaleX: 0
   SyncScaleY: 0
   SyncScaleZ: 0
@@ -402,6 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerVisual: {fileID: 3132702926442909116}
+  playerPistol: {fileID: 0}
 --- !u!1 &2364168287792027450
 GameObject:
   m_ObjectHideFlags: 0
