@@ -276,7 +276,13 @@ public class GameMultiplayer : NetworkBehaviour
         string leaderboard = "";
         foreach (PlayerData playerData in playerDataNetworkList)
         {
-            leaderboard += "<color=#" + ColorUtility.ToHtmlStringRGBA(getPlayerColor(playerData.colorId)) + "> " + playerData.score + " | " + playerData.playerName.ToString() + "</color>\n";
+            leaderboard += "<color=#" 
+                + ColorUtility.ToHtmlStringRGBA(getPlayerColor(playerData.colorId)) 
+                + "> " 
+                + playerData.score 
+                + " | " 
+                + playerData.playerName.ToString() 
+                + "</color>\n";
         }
         return leaderboard;
     }

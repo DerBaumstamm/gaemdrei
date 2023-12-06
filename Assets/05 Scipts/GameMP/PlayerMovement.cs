@@ -12,8 +12,10 @@ public class PlayerInput : NetworkBehaviour
     [SerializeField] private InputAction lookAction;
     [SerializeField] private InputAction jumpAction;
     [SerializeField] private InputAction sprintAction;
+    [SerializeField] private InputAction menuAction;
 
     //object variables
+    [SerializeField] private EscapeUI escapeUI;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private GameObject playerCamera;
     [SerializeField] private List<Vector3> spawnPositionList;
@@ -28,6 +30,7 @@ public class PlayerInput : NetworkBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private float groundCheckDistance; 
     [SerializeField] private float groundHeight;
+    private bool isMenuShown = false;
     private bool isSprinting = false;
     private float rotationX;
 
@@ -46,6 +49,7 @@ public class PlayerInput : NetworkBehaviour
         lookAction.Enable();
         jumpAction.Enable();
         sprintAction.Enable();
+        menuAction.Enable();
         Invoke(nameof(enableCamera), .1f);
     }
 
@@ -56,6 +60,7 @@ public class PlayerInput : NetworkBehaviour
         lookAction.Disable();
         jumpAction.Disable();
         sprintAction.Disable();
+        menuAction.Disable();
     }
 
     // locks cursor and spawns player with according position and rotation
@@ -72,23 +77,13 @@ public class PlayerInput : NetworkBehaviour
             transform.position = gameOverPositionList[GameMultiplayer.Instance.getPlayerDataIndexFromClientId(OwnerClientId)];
         }
         
-        camRotation = Quaternion.Euler(playerCamera.transform.eulerAngles);
-        
+        camRotation = Quaternion.Euler(playerCamera.transform.eulerAngles);       
     }
 
     //applies all rotations + triggers jump
     private void Update()
     {
         if (!IsOwner) return;
-
-        
-    }
-
-    //applies wasd movement + sprint
-    private void FixedUpdate()
-    {
-        if (!IsOwner) return;
-
         //assign movement inputs to variables
         lookInput = lookAction.ReadValue<Vector2>();
         moveDirection = movementAction.ReadValue<Vector2>();
@@ -97,6 +92,12 @@ public class PlayerInput : NetworkBehaviour
         if (jumpAction.triggered && isGrounded())
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+
+        if (menuAction.triggered)
+        {          
+            escapeUI.show();
+            Cursor.lockState = CursorLockMode.None;
         }
 
         //set isSprinting to true when sprint button is pressed
@@ -126,7 +127,15 @@ public class PlayerInput : NetworkBehaviour
 
         Vector3 desiredMoveDirection = forward * moveDirection.y + right * moveDirection.x;
         rb.velocity = new Vector3(desiredMoveDirection.x * speed, rb.velocity.y, desiredMoveDirection.z * speed);
-        animator.SetFloat("animSpeed",rb.velocity.magnitude);
+        animator.SetFloat("animSpeed", rb.velocity.magnitude);
+    }
+
+    //applies wasd movement + sprint
+    private void FixedUpdate()
+    {
+        //if (!IsOwner) return;
+
+        
     }
 
     //Use a raycast to check if the player is grounded
